@@ -32,6 +32,11 @@ public class Bank {
 		this.isEmployee = isEmployee;
 	}
 
+	public Bank(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -64,12 +69,12 @@ public class Bank {
 		this.isEmployee = isEmployee;
 	}
 
-	public double getDeposit() {
-		return deposit;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setDeposit(double deposit) {
-		this.deposit = deposit;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 

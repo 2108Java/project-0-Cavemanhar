@@ -83,7 +83,7 @@ for(int i = 0; i< array.size(); i++) {
 					System.out.println("Please enter your Password:");
 					String password = sc.nextLine();
 					Bank banker = new Bank(username, password);
-					service.validateUser(banker);
+				if (service.validateUser(banker)== true) {
 					
 					if(banker.isEmployee() == true) {
 						boolean running2 = true;
@@ -108,30 +108,35 @@ for(int i = 0; i< array.size(); i++) {
 							
 						}
 						}
-						
+					
 						
 					}else if (banker.isApproved() == true) {
 					
 						optionsMenuCustomer();
+						System.out.println("Sorry not yet implemented");
+						break;
 						
 					}else {
 						System.out.println("sorry you have yet to be approved.");
-						
+						break;
 					}
+				}
 					
 					break;
 				case "2":
 					System.out.println("Please enter your Username for your new account:");
 					String newUsername = sc.nextLine();
-					System.out.println("Please enter your Password for your new account::");
+					System.out.println("Please enter your Password for your new account:");
 					String newPassword = sc.nextLine();
-					System.out.println("Please enter your Password for your new account::");
+					System.out.println("Please enter your a value you wish to initially deposit:");
 					Double firstDeposit = Double.parseDouble(sc.nextLine());
-					System.out.println("Please enter your Password for your new account::");
+					System.out.println("Please enter if you are a employee:");
 					Boolean employee = Boolean.parseBoolean(sc.nextLine());
 					Bank newBanker = new Bank(newUsername,newPassword,firstDeposit,false, employee);
 					
 					service.addUser(newBanker);
+					
+					prettyDisplayOfArray(service.getAllAccounts());
 					break;
 				case "8":
 					System.out.println("Thank you for banking with us.");
@@ -151,7 +156,8 @@ for(int i = 0; i< array.size(); i++) {
 			}
 			
 			
-		}
 	}
+}
+
 
 

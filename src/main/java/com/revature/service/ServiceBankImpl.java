@@ -17,14 +17,22 @@ public class ServiceBankImpl implements BankService {
 
 
 @Override
-	public void validateUser(Bank banker) {
+	public Boolean validateUser(Bank banker) {
 	// TODO Auto-generated method stub
-	
+		if (database.logIn(banker)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
 	}
 
 	@Override
 	public void addUser(Bank newBanker) {
-		// TODO Auto-generated method stub
+		
+		database.createUser(newBanker);
+		
 		
 	}
 
@@ -43,4 +51,12 @@ public class ServiceBankImpl implements BankService {
 	}
 
 
+	@Override
+	public List<Bank> getAllAccounts() {
+		// TODO Auto-generated method stub
+		
+		return database.selectAllAccounts();
+
+
+	}
 }

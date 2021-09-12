@@ -7,13 +7,15 @@ import com.revature.models.Bank;
 public interface BankService {
 
 
-	public void validateUser(Bank banker);
+	public Boolean validateUser(Bank banker);
 
 	public void addUser(Bank newBanker);
 
 	public List<Bank> getAllUnapprovedAccounts();
 
 	public void setUserToApproved(String user);
+
+	public List<Bank> getAllAccounts();
 
 
 

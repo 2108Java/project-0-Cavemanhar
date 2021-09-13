@@ -32,14 +32,19 @@ public class BankDummyDAOImpl implements BankDAO {
 	@Override
 	public boolean logIn(Bank banker) {
 		// TODO Auto-generated method stub
+		boolean validate = false;
 		for(int i = 0; i < dummyUsersList.size(); i++ ) {
-			if(dummyUsersList.get(i).getUsername() == banker.getUsername() && dummyUsersList.get(i).getPassword() == banker.getPassword()  ) {
-				return true;
-			}else {
-				return false;
+			
+			if(dummyUsersList.get(i).getUsername().equals(banker.getUsername())) {//&& dummyUsersList.get(i).getPassword() == banker.getPassword()  
+				
+				
+				
+				validate=true;
+				break;
 			}
+			
 		}
-		return false;
+		return validate;
 		
 	}
 
@@ -47,6 +52,60 @@ public class BankDummyDAOImpl implements BankDAO {
 	public List<Bank> selectAllAccounts() {
 		// TODO Auto-generated method stub
 		return dummyUsersList;
+	}
+
+
+
+	@Override
+	public boolean selectEmployee(Bank banker) {
+		
+		boolean validate = false;
+		for(int i = 0; i < dummyUsersList.size(); i++ ) {
+			
+			if(dummyUsersList.get(i).getUsername().equals(banker.getUsername()) && dummyUsersList.get(i).getPassword().equals(banker.getPassword())) {
+				
+				
+				validate=true;
+				break;
+			}
+			
+		}
+		return validate;
+	}
+
+	@Override
+	public List<Bank> selectAllUnapprovedAccounts() {
+		List<Bank> unapprovedUsersList = new ArrayList();
+		
+			for(int i = 0; i < dummyUsersList.size(); i++ ) {
+			
+				if(dummyUsersList.get(i).isApproved() == false) {
+				
+				
+				unapprovedUsersList.add(dummyUsersList.get(i));
+				
+					
+				}
+			
+			}
+		return unapprovedUsersList;
+	}
+
+	@Override
+	public boolean updateUserToApproved(String user) {
+		boolean validate = false;
+		for(int i = 0; i < dummyUsersList.size(); i++ ) {
+			
+			if(dummyUsersList.get(i).getUsername().equals(user) ) {
+				
+				dummyUsersList.get(i).setApproved(true);
+				
+				validate=true;
+				break;
+			}
+			
+		}
+		return validate;
 	}
 
 }

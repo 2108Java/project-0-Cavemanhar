@@ -13,9 +13,11 @@ public interface BankService {
 
 	public List<Bank> getAllUnapprovedAccounts();
 
-	public void setUserToApproved(String user);
+	public boolean setUserToApproved(String user);
 
 	public List<Bank> getAllAccounts();
+
+	public boolean isEmployee(Bank banker);
 
 
 

@@ -51,7 +51,7 @@ for(int i = 0; i< array.size(); i++) {
 //		System.out.println("5) View all incomplete todos");
 //		System.out.println("6) View all complete todos");
 //		System.out.println("7) View a single todo");
-		System.out.println("8) Exit");
+		System.out.println("8) Log Out");
 	}
 	private void optionsMenuCustomer() {
 		System.out.println("1) Current Balance");
@@ -61,7 +61,7 @@ for(int i = 0; i< array.size(); i++) {
 //		System.out.println("5) View all incomplete todos");
 //		System.out.println("6) View all complete todos");
 //		System.out.println("7) View a single todo");
-		System.out.println("8) Exit");
+		System.out.println("8) Log Out");
 	}
 	public void Display() {
 		
@@ -83,9 +83,11 @@ for(int i = 0; i< array.size(); i++) {
 					System.out.println("Please enter your Password:");
 					String password = sc.nextLine();
 					Bank banker = new Bank(username, password);
+					System.out.println(banker.getUsername());
+//					boolean userValidate =service.validateUser(banker) ;
 				if (service.validateUser(banker)== true) {
-					
-					if(banker.isEmployee() == true) {
+					System.out.println("in first if");
+					if(service.isEmployee(banker) == true) {
 						boolean running2 = true;
 						
 						while(running2) {
@@ -99,7 +101,11 @@ for(int i = 0; i< array.size(); i++) {
 							prettyDisplayOfArray(unApprovedUsers);
 							System.out.println("Which user do you wish to approve?(use username)");
 							String user = sc.nextLine();
-							service.setUserToApproved(user);
+							if (service.setUserToApproved(user)) {
+								System.out.println("User has been approved!");
+							}else {
+								System.out.println("User not found!");
+							}
 							break;
 							
 						case "8":
@@ -120,6 +126,8 @@ for(int i = 0; i< array.size(); i++) {
 						System.out.println("sorry you have yet to be approved.");
 						break;
 					}
+				}else {
+					System.out.println("Log in failed");
 				}
 					
 					break;

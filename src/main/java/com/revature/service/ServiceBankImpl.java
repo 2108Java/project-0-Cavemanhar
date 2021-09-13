@@ -1,5 +1,6 @@
 package com.revature.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.models.Bank;
@@ -19,10 +20,13 @@ public class ServiceBankImpl implements BankService {
 @Override
 	public Boolean validateUser(Bank banker) {
 	// TODO Auto-generated method stub
+//	System.out.println(banker.getUsername() + banker.getPassword());
 		if (database.logIn(banker)) {
+			
 			return true;
 		}
 		else {
+		
 			return false;
 		}
 		
@@ -39,15 +43,21 @@ public class ServiceBankImpl implements BankService {
 
 	@Override
 	public List<Bank> getAllUnapprovedAccounts() {
+		
+		List<Bank> unapprovedAccounts= new ArrayList();
+		
+			unapprovedAccounts = database.selectAllUnapprovedAccounts();
 		// TODO Auto-generated method stub
-		return null;
+		return unapprovedAccounts;
 	}
 
 
 	@Override
-	public void setUserToApproved(String user) {
+	public boolean setUserToApproved(String user) {
 		// TODO Auto-generated method stub
 		
+		
+		return database.updateUserToApproved(user);
 	}
 
 
@@ -58,5 +68,16 @@ public class ServiceBankImpl implements BankService {
 		return database.selectAllAccounts();
 
 
+	}
+
+
+
+
+	@Override
+	public boolean isEmployee(Bank banker) {
+		
+		
+		// TODO Auto-generated method stub
+		return database.selectEmployee(banker);
 	}
 }

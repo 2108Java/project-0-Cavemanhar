@@ -14,4 +14,10 @@ public interface BankDAO {
 
 	public void dummyUsers();
 
+	public boolean selectEmployee(Bank banker);
+
+	public List<Bank> selectAllUnapprovedAccounts();
+
+	public boolean updateUserToApproved(String user);
+
 }

@@ -80,4 +80,18 @@ public class ServiceBankImpl implements BankService {
 		// TODO Auto-generated method stub
 		return database.selectEmployee(banker);
 	}
+
+
+	@Override
+	public boolean validateUserEmployee(Bank employeeBank) {
+		// TODO Auto-generated method stub
+		return database.selectEmployee(employeeBank);
+	}
+
+
+	@Override
+	public boolean deleteUser(String users) {
+		// TODO Auto-generated method stub
+		return database.deleteUser(users);
+	}
 }

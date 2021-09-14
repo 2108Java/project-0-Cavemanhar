@@ -11,11 +11,11 @@ public class BankDummyDAOImpl implements BankDAO {
 //		List<Bank> dummyUsersList = new ArrayList();
 		
 		
-		 dummyUsersList.add(new Bank("Tyler", "starfish", 100, false, false ));
-		 dummyUsersList.add(new Bank("Ashley", "starfish", 100, false, false ));
-		 dummyUsersList.add(new Bank("Jeff", "starfish", 0, true, true ));
-		 dummyUsersList.add(new Bank("John", "starfish", 1000, true, false ));
-		 dummyUsersList.add(new Bank("Kelce", "starfish", 100.50, false, false ));
+		 dummyUsersList.add(new Bank("Tyler", "starfish", 100, false, "Savings" ));
+		 dummyUsersList.add(new Bank("Ashley", "starfish", 100, false, "Checking" ));
+		 dummyUsersList.add(new Bank("Jeff", "starfish", true ));
+		 dummyUsersList.add(new Bank("John", "starfish", 1000, true,  "Checking" ));
+		 dummyUsersList.add(new Bank("Kelce", "starfish", 100.50, false,  "Checking" ));
 		
 		
 	}
@@ -35,8 +35,9 @@ public class BankDummyDAOImpl implements BankDAO {
 		boolean validate = false;
 		for(int i = 0; i < dummyUsersList.size(); i++ ) {
 			
-			if(dummyUsersList.get(i).getUsername().equals(banker.getUsername())) {//&& dummyUsersList.get(i).getPassword() == banker.getPassword()  
-				
+			if(dummyUsersList.get(i).getUsername().equals(banker.getUsername())
+					&& dummyUsersList.get(i).getPassword().equals(banker.getPassword())
+					&& dummyUsersList.get(i).isApproved()){
 				
 				
 				validate=true;
@@ -62,7 +63,9 @@ public class BankDummyDAOImpl implements BankDAO {
 		boolean validate = false;
 		for(int i = 0; i < dummyUsersList.size(); i++ ) {
 			
-			if(dummyUsersList.get(i).getUsername().equals(banker.getUsername()) && dummyUsersList.get(i).getPassword().equals(banker.getPassword())) {
+			if(dummyUsersList.get(i).getUsername().equals(banker.getUsername())
+					&& dummyUsersList.get(i).getPassword().equals(banker.getPassword())
+							&& dummyUsersList.get(i).isEmployee()) {
 				
 				
 				validate=true;
@@ -99,6 +102,26 @@ public class BankDummyDAOImpl implements BankDAO {
 			if(dummyUsersList.get(i).getUsername().equals(user) ) {
 				
 				dummyUsersList.get(i).setApproved(true);
+				
+				validate=true;
+				break;
+			}
+			
+		}
+		return validate;
+	}
+
+	@Override
+	public boolean deleteUser(String user) {
+		// TODO Auto-generated method stub
+		
+		
+		boolean validate = false;
+		for(int i = 0; i < dummyUsersList.size(); i++ ) {
+			
+			if(dummyUsersList.get(i).getUsername().equals(user) ) {
+				
+				dummyUsersList.remove(i);
 				
 				validate=true;
 				break;

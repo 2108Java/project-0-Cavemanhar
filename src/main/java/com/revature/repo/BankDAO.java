@@ -20,4 +20,6 @@ public interface BankDAO {
 
 	public boolean updateUserToApproved(String user);
 
+	public boolean deleteUser(String users);
+
 }

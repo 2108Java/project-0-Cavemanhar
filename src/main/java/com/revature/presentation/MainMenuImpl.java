@@ -34,9 +34,9 @@ for(int i = 0; i< array.size(); i++) {
 	
 	
 	private void optionsMenu() {
-		System.out.println("1) Log in to Account");
+		System.out.println("1) Log in to Bank Account");
 		System.out.println("2) Apply for Bank Account");
-//		System.out.println("3) Complete a todo");
+		System.out.println("3) Log in to Employee Account");
 //		System.out.println("4) Delete a todo");
 //		System.out.println("5) View all incomplete todos");
 //		System.out.println("6) View all complete todos");
@@ -45,7 +45,7 @@ for(int i = 0; i< array.size(); i++) {
 	}
 	private void optionsMenuEmployee() {
 		System.out.println("1) Approve new User");
-//		System.out.println("2) Apply for Bank Account");
+		System.out.println("2) Reject a new User");
 //		System.out.println("3) Complete a todo");
 //		System.out.println("4) Delete a todo");
 //		System.out.println("5) View all incomplete todos");
@@ -83,50 +83,17 @@ for(int i = 0; i< array.size(); i++) {
 					System.out.println("Please enter your Password:");
 					String password = sc.nextLine();
 					Bank banker = new Bank(username, password);
-					System.out.println(banker.getUsername());
+//					System.out.println(banker.getUsername());
 //					boolean userValidate =service.validateUser(banker) ;
 				if (service.validateUser(banker)== true) {
-					System.out.println("in first if");
-					if(service.isEmployee(banker) == true) {
-						boolean running2 = true;
-						
-						while(running2) {
-						optionsMenuEmployee();
-						String result2 = sc.nextLine();
-						
-						switch (result2) {
-						case "1":
-							
-							List<Bank> unApprovedUsers =	service.getAllUnapprovedAccounts();
-							prettyDisplayOfArray(unApprovedUsers);
-							System.out.println("Which user do you wish to approve?(use username)");
-							String user = sc.nextLine();
-							if (service.setUserToApproved(user)) {
-								System.out.println("User has been approved!");
-							}else {
-								System.out.println("User not found!");
-							}
-							break;
-							
-						case "8":
-							running2 = false;
-							break;
-							
-						}
-						}
-					
-						
-					}else if (banker.isApproved() == true) {
+//					System.out.println("in first if");
 					
 						optionsMenuCustomer();
 						System.out.println("Sorry not yet implemented");
 						break;
-						
-					}else {
-						System.out.println("sorry you have yet to be approved.");
-						break;
+										
 					}
-				}else {
+				else {
 					System.out.println("Log in failed");
 				}
 					
@@ -140,11 +107,59 @@ for(int i = 0; i< array.size(); i++) {
 					Double firstDeposit = Double.parseDouble(sc.nextLine());
 					System.out.println("Please enter if you are a employee:");
 					Boolean employee = Boolean.parseBoolean(sc.nextLine());
-					Bank newBanker = new Bank(newUsername,newPassword,firstDeposit,false, employee);
+					Bank newBanker = new Bank(newUsername,newPassword,firstDeposit,false, "Checking");
 					
 					service.addUser(newBanker);
 					
 					prettyDisplayOfArray(service.getAllAccounts());
+					break;
+				case "3":
+					System.out.println("Please enter your Username:");
+					String usernameEmployee = sc.nextLine();
+					System.out.println("Please enter your Password:");
+					String passwordEmployee = sc.nextLine();
+					Bank employeeBank = new Bank(usernameEmployee, passwordEmployee);
+//					System.out.println(employeeBank.getUsername());
+					if (service.validateUserEmployee(employeeBank)== true) {
+						boolean running2 = true;
+						
+						while(running2) {
+						optionsMenuEmployee();
+						String result2 = sc.nextLine();
+						
+						switch (result2) {
+							case "1":
+							
+								List<Bank> unApprovedUsers =	service.getAllUnapprovedAccounts();
+								prettyDisplayOfArray(unApprovedUsers);
+								System.out.println("Which user do you wish to approve?(use username)");
+								String user = sc.nextLine();
+								if (service.setUserToApproved(user)) {
+									System.out.println("User has been approved!");
+								}else {
+									System.out.println("User not found!");
+								}
+								break;
+							case "2":
+								List<Bank> unApprovedUser =	service.getAllUnapprovedAccounts();
+								prettyDisplayOfArray(unApprovedUser);
+								System.out.println("Which user do you wish to reject?(use username)");
+								String users = sc.nextLine();
+								if (service.deleteUser(users)) {
+									System.out.println("User has been Rejected!");
+								}else {
+									System.out.println("User not found!");
+								}
+								break;
+							case "8":
+								System.out.println("Employee Logging out.");
+								running2 = false;
+								break;
+							}
+						}
+					}else {
+						System.out.println("Log in failed are you sure you are an employee");
+					}
 					break;
 				case "8":
 					System.out.println("Thank you for banking with us.");

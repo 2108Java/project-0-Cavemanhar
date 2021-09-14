@@ -19,6 +19,10 @@ public interface BankService {
 
 	public boolean isEmployee(Bank banker);
 
+	public boolean validateUserEmployee(Bank employeeBank);
+
+	public boolean deleteUser(String users);
+
 
 
 	

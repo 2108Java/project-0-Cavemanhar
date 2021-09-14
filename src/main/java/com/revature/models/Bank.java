@@ -7,6 +7,7 @@ public class Bank {
 	private double balance;
 	private boolean isApproved;
 	private boolean isEmployee;
+	private String accountType;
 
 	private double withdraw;
 	private double deposit;
@@ -23,19 +24,38 @@ public class Bank {
 		this.deposit = deposit;
 	}
 
-	public Bank(String username, String password, double balance, boolean isApproved, boolean isEmployee) {
+	
+	public Bank(String username, String password, double balance,  boolean isEmployee, String accountType) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.balance = balance;
-		this.isApproved = isApproved;
+		this.accountType = accountType;
 		this.isEmployee = isEmployee;
+		this.isApproved = false;
+		
 	}
 
 	public Bank(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}
+	public Bank(String username, String password, boolean isEmployee) {
+		this.username = username;
+		this.password = password;
+		this.isEmployee = isEmployee;
+		this.isApproved = true;
+	}
+
+
+	public Bank(String username, String password, Double balance, boolean isApproved, String accountType) {
+		this.username = username;
+		this.password = password;
+		this.balance = balance;
+		this.accountType = accountType;
+		this.isApproved = false;
+	}
+
 
 	public String getPassword() {
 		return password;
@@ -77,5 +97,12 @@ public class Bank {
 		this.username = username;
 	}
 	
+	public String getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
 
 }

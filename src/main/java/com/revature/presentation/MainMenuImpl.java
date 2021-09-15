@@ -23,6 +23,7 @@ for(int i = 0; i< array.size(); i++) {
 			if(array.get(i) != null) {
 				System.out.println(array.get(i).getUsername());
 				System.out.println(array.get(i).getBalance());
+				System.out.println(array.get(i).getAccountType());
 				System.out.println(array.get(i).isApproved());
 				System.out.println("");
 				
@@ -46,7 +47,7 @@ for(int i = 0; i< array.size(); i++) {
 	private void optionsMenuEmployee() {
 		System.out.println("1) Approve new User");
 		System.out.println("2) Reject a new User");
-//		System.out.println("3) Complete a todo");
+		System.out.println("3) View a Users Balance");
 //		System.out.println("4) Delete a todo");
 //		System.out.println("5) View all incomplete todos");
 //		System.out.println("6) View all complete todos");
@@ -55,8 +56,8 @@ for(int i = 0; i< array.size(); i++) {
 	}
 	private void optionsMenuCustomer() {
 		System.out.println("1) Current Balance");
-//		System.out.println("2) ");
-//		System.out.println("3) Complete a todo");
+//		System.out.println("2) Make Deposit");
+//		System.out.println("3) Make Withdraw");
 //		System.out.println("4) Delete a todo");
 //		System.out.println("5) View all incomplete todos");
 //		System.out.println("6) View all complete todos");
@@ -105,9 +106,11 @@ for(int i = 0; i< array.size(); i++) {
 					String newPassword = sc.nextLine();
 					System.out.println("Please enter your a value you wish to initially deposit:");
 					Double firstDeposit = Double.parseDouble(sc.nextLine());
-					System.out.println("Please enter if you are a employee:");
-					Boolean employee = Boolean.parseBoolean(sc.nextLine());
-					Bank newBanker = new Bank(newUsername,newPassword,firstDeposit,false, "Checking");
+//					System.out.println("Please enter if you are a employee:");
+//					Boolean employee = Boolean.parseBoolean(sc.nextLine());
+					System.out.println("Please enter your account type for your new account as either Savings or Checking:");
+					String newAccountType = sc.nextLine();
+					Bank newBanker = new Bank(newUsername,newPassword,firstDeposit,false, newAccountType);
 					
 					service.addUser(newBanker);
 					

@@ -12,7 +12,7 @@ public interface BankDAO {
 
 	public List<Bank> selectAllAccounts();
 
-	public void dummyUsers();
+//	public void dummyUsers();
 
 	public boolean selectEmployee(Bank banker);
 

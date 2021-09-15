@@ -6,6 +6,7 @@ import com.revature.service.ServiceBankImpl;
 import com.revature.presentation.MainMenu;
 import com.revature.presentation.MainMenuImpl;
 import com.revature.repo.BankDAO;
+import com.revature.repo.BankDAOImpl;
 import com.revature.repo.BankDummyDAOImpl;
 
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ public class MainDriver {
 		
 		
 		
-	BankDAO database = new BankDummyDAOImpl();
+	BankDAO database = new BankDAOImpl();
 	
-	database.dummyUsers();
+//	database.dummyUsers();
 		
 		BankService service = new ServiceBankImpl(database);
 		

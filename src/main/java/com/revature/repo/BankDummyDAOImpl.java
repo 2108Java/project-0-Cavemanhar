@@ -22,7 +22,7 @@ public class BankDummyDAOImpl implements BankDAO {
 	
 	@Override
 	public void createUser(Bank newBanker) {
-		// TODO Auto-generated method stub
+
 		
 		dummyUsersList.add(newBanker);
 		System.out.println("User Added");

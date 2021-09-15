@@ -2,28 +2,28 @@ package com.revature.repo;
 
 import java.util.List;
 
-import com.revature.models.Bank;
+import com.revature.models.User;
 
 public interface BankDAO {
 
-	public void createUser(Bank newBanker);
+	public void createUser(User newBanker);
 
-	public boolean logIn(Bank banker);
+	public boolean logIn(User banker);
 
-	public List<Bank> selectAllAccounts();
+	public List<User> selectAllAccounts();
 
 //	public void dummyUsers();
 
-	public boolean selectEmployee(Bank banker);
+	public boolean selectEmployee(User banker);
 
-	public List<Bank> selectAllUnapprovedAccounts();
+	public List<User> selectAllUnapprovedAccounts();
 
 	public boolean updateUserToApproved(String user);
 
 	public boolean deleteUser(String users);
 
-	public List<Bank> SelectAccount(Bank banker);
+	public List<User> SelectAccount(User banker);
 
-	public List<Bank> SelectAccountEmployee(String userBalance);
+	public List<User> SelectAccountEmployee(String userBalance);
 
 }

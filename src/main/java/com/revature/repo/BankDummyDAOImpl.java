@@ -3,25 +3,25 @@ package com.revature.repo;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.models.Bank;
+import com.revature.models.User;
 
 public class BankDummyDAOImpl implements BankDAO {
-	private List<Bank> dummyUsersList = new ArrayList();
+	private List<User> dummyUsersList = new ArrayList();
 	public void dummyUsers() {
 //		List<Bank> dummyUsersList = new ArrayList();
 		
 		
-		 dummyUsersList.add(new Bank("Tyler", "starfish", 100, false, "Savings" ));
-		 dummyUsersList.add(new Bank("Ashley", "starfish", 100, false, "Checking" ));
-		 dummyUsersList.add(new Bank("Jeff", "starfish", true ));
-		 dummyUsersList.add(new Bank("John", "starfish", 1000, true,  "Checking" ));
-		 dummyUsersList.add(new Bank("Kelce", "starfish", 100.50, false,  "Checking" ));
+		 dummyUsersList.add(new User("Tyler", "starfish", 100, false, "Savings" ));
+		 dummyUsersList.add(new User("Ashley", "starfish", 100, false, "Checking" ));
+		 dummyUsersList.add(new User("Jeff", "starfish", true ));
+		 dummyUsersList.add(new User("John", "starfish", 1000, true,  "Checking" ));
+		 dummyUsersList.add(new User("Kelce", "starfish", 100.50, false,  "Checking" ));
 		
 		
 	}
 	
 	@Override
-	public void createUser(Bank newBanker) {
+	public void createUser(User newBanker) {
 
 		
 		dummyUsersList.add(newBanker);
@@ -30,7 +30,7 @@ public class BankDummyDAOImpl implements BankDAO {
 	}
 
 	@Override
-	public boolean logIn(Bank banker) {
+	public boolean logIn(User banker) {
 		// TODO Auto-generated method stub
 		boolean validate = false;
 		for(int i = 0; i < dummyUsersList.size(); i++ ) {
@@ -50,7 +50,7 @@ public class BankDummyDAOImpl implements BankDAO {
 	}
 
 	@Override
-	public List<Bank> selectAllAccounts() {
+	public List<User> selectAllAccounts() {
 		// TODO Auto-generated method stub
 		return dummyUsersList;
 	}
@@ -58,7 +58,7 @@ public class BankDummyDAOImpl implements BankDAO {
 
 
 	@Override
-	public boolean selectEmployee(Bank banker) {
+	public boolean selectEmployee(User banker) {
 		
 		boolean validate = false;
 		for(int i = 0; i < dummyUsersList.size(); i++ ) {
@@ -77,8 +77,8 @@ public class BankDummyDAOImpl implements BankDAO {
 	}
 
 	@Override
-	public List<Bank> selectAllUnapprovedAccounts() {
-		List<Bank> unapprovedUsersList = new ArrayList();
+	public List<User> selectAllUnapprovedAccounts() {
+		List<User> unapprovedUsersList = new ArrayList();
 		
 			for(int i = 0; i < dummyUsersList.size(); i++ ) {
 			
@@ -129,6 +129,18 @@ public class BankDummyDAOImpl implements BankDAO {
 			
 		}
 		return validate;
+	}
+
+	@Override
+	public List<User> SelectAccount(User banker) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<User> SelectAccountEmployee(String userBalance) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

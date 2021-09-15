@@ -1,6 +1,6 @@
 package com.revature.models;
 
-public class Bank {
+public class User {
 	
 	private String username;
 	private String password;
@@ -12,7 +12,7 @@ public class Bank {
 	private double withdraw;
 	private double deposit;
 	
-	public Bank(String username, String password, double balance, boolean isApproved, boolean isEmployee,
+	public User(String username, String password, double balance, boolean isApproved, boolean isEmployee,
 			double withdraw, double deposit) {
 		super();
 		this.username = username;
@@ -25,7 +25,7 @@ public class Bank {
 	}
 
 	
-	public Bank(String username, String password, double balance,  boolean isEmployee, String accountType) {
+	public User(String username, String password, double balance,  boolean isEmployee, String accountType) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -36,11 +36,11 @@ public class Bank {
 		
 	}
 
-	public Bank(String username, String password) {
+	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}
-	public Bank(String username, String password, boolean isEmployee) {
+	public User(String username, String password, boolean isEmployee) {
 		this.username = username;
 		this.password = password;
 		this.isEmployee = isEmployee;
@@ -48,7 +48,7 @@ public class Bank {
 	}
 
 
-	public Bank(String username, String password, Double balance, boolean isApproved, String accountType) {
+	public User(String username, String password, Double balance, boolean isApproved, String accountType) {
 		this.username = username;
 		this.password = password;
 		this.balance = balance;

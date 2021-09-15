@@ -3,7 +3,7 @@ package com.revature.presentation;
 import java.util.List;
 import java.util.Scanner;
 
-import com.revature.models.Bank;
+import com.revature.models.User;
 
 import com.revature.service.BankService;
 
@@ -17,7 +17,7 @@ public class MainMenuImpl implements MainMenu{
 		this.service = service;
 	}
 	
-	private void prettyDisplayOfArray(List<Bank> array) {
+	private void prettyDisplayOfArray(List<User> array) {
 for(int i = 0; i< array.size(); i++) {
 			
 			if(array.get(i) != null) {
@@ -83,7 +83,7 @@ for(int i = 0; i< array.size(); i++) {
 					String username = sc.nextLine();
 					System.out.println("Please enter your Password:");
 					String password = sc.nextLine();
-					Bank banker = new Bank(username, password);
+					User banker = new User(username, password);
 //					System.out.println(banker.getUsername());
 //					boolean userValidate =service.validateUser(banker) ;
 				if (service.validateUser(banker)== true) {
@@ -129,7 +129,7 @@ for(int i = 0; i< array.size(); i++) {
 //					Boolean employee = Boolean.parseBoolean(sc.nextLine());
 					System.out.println("Please enter your account type for your new account as either Savings or Checking:");
 					String newAccountType = sc.nextLine();
-					Bank newBanker = new Bank(newUsername,newPassword,firstDeposit,false, newAccountType);
+					User newBanker = new User(newUsername,newPassword,firstDeposit,false, newAccountType);
 					
 					service.addUser(newBanker);
 					
@@ -140,7 +140,7 @@ for(int i = 0; i< array.size(); i++) {
 					String usernameEmployee = sc.nextLine();
 					System.out.println("Please enter your Password:");
 					String passwordEmployee = sc.nextLine();
-					Bank employeeBank = new Bank(usernameEmployee, passwordEmployee);
+					User employeeBank = new User(usernameEmployee, passwordEmployee);
 //					System.out.println(employeeBank.getUsername());
 					if (service.validateUserEmployee(employeeBank)== true) {
 						boolean running2 = true;
@@ -152,7 +152,7 @@ for(int i = 0; i< array.size(); i++) {
 						switch (result2) {
 							case "1":
 							
-								List<Bank> unApprovedUsers =	service.getAllUnapprovedAccounts();
+								List<User> unApprovedUsers =	service.getAllUnapprovedAccounts();
 								prettyDisplayOfArray(unApprovedUsers);
 								System.out.println("Which user do you wish to approve?(use username)");
 								String user = sc.nextLine();
@@ -163,7 +163,7 @@ for(int i = 0; i< array.size(); i++) {
 								}
 								break;
 							case "2":
-								List<Bank> unApprovedUser =	service.getAllUnapprovedAccounts();
+								List<User> unApprovedUser =	service.getAllUnapprovedAccounts();
 								prettyDisplayOfArray(unApprovedUser);
 								System.out.println("Which user do you wish to reject?(use username)");
 								String users = sc.nextLine();

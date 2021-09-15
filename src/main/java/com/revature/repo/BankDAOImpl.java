@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.models.Bank;
+import com.revature.models.User;
 
 
 
@@ -18,7 +18,7 @@ public class BankDAOImpl implements BankDAO {
 	String username = "postgres";
 	String password = "p4ssw0rd";
 	@Override
-	public void createUser(Bank newBanker) {
+	public void createUser(User newBanker) {
 
 		
 		
@@ -44,7 +44,7 @@ public class BankDAOImpl implements BankDAO {
 	}
 
 	@Override
-	public boolean logIn(Bank banker) {
+	public boolean logIn(User banker) {
 		String sql = "SELECT * from Users WHERE username = ? and user_password = ? and isApproved = ?";
 		boolean success = false;
 		try (Connection connection = DriverManager.getConnection(url,username,password)){
@@ -68,8 +68,8 @@ public class BankDAOImpl implements BankDAO {
 	}
 
 	@Override
-	public List<Bank> selectAllAccounts() {
-		List<Bank> itemArray = new ArrayList<>();
+	public List<User> selectAllAccounts() {
+		List<User> itemArray = new ArrayList<>();
 		try (Connection connection = DriverManager.getConnection(url,username,password))
 		{
 			String sql = "SELECT * FROM Users";
@@ -80,7 +80,7 @@ public class BankDAOImpl implements BankDAO {
 			
 			int i = 0;
 			while(rs.next()) {
-				Bank	todo = new Bank(rs.getString("username"),
+				User	todo = new User(rs.getString("username"),
 										rs.getString("user_password"),
 										rs.getDouble("balance"),
 //										rs.getBoolean("isApproved"),
@@ -99,7 +99,7 @@ public class BankDAOImpl implements BankDAO {
 
 	
 	@Override
-	public boolean selectEmployee(Bank banker) {
+	public boolean selectEmployee(User banker) {
 		String sql = "SELECT * from Users WHERE username = ? and user_password = ? and isemployee = ?";
 		boolean success = false;
 		try (Connection connection = DriverManager.getConnection(url,username,password)){
@@ -125,8 +125,8 @@ public class BankDAOImpl implements BankDAO {
 	}
 
 	@Override
-	public List<Bank> selectAllUnapprovedAccounts() {
-		List<Bank> itemArray = new ArrayList<>();
+	public List<User> selectAllUnapprovedAccounts() {
+		List<User> itemArray = new ArrayList<>();
 		try (Connection connection = DriverManager.getConnection(url,username,password))
 		{
 			String sql = "SELECT * FROM Users where isApproved = ?";
@@ -139,7 +139,7 @@ public class BankDAOImpl implements BankDAO {
 			
 			int i = 0;
 			while(rs.next()) {
-				Bank	todo = new Bank(rs.getString("username"),
+				User	todo = new User(rs.getString("username"),
 										rs.getString("user_password"),
 										rs.getDouble("balance"),
 //										rs.getBoolean("isApproved"),
@@ -189,8 +189,8 @@ public class BankDAOImpl implements BankDAO {
 	}
 
 	@Override
-	public List<Bank> SelectAccount(Bank banker) {
-		List<Bank> itemArray = new ArrayList<>();
+	public List<User> SelectAccount(User banker) {
+		List<User> itemArray = new ArrayList<>();
 		String sql = "SELECT * from Users WHERE username = ?";
 	
 		try (Connection connection = DriverManager.getConnection(url,username,password)){
@@ -202,7 +202,7 @@ public class BankDAOImpl implements BankDAO {
 		
 		int i = 0;
 		while(rs.next()) {
-			Bank	todo = new Bank(rs.getString("username"),
+			User	todo = new User(rs.getString("username"),
 									rs.getString("user_password"),
 									rs.getDouble("balance"),
 //									rs.getBoolean("isApproved"),
@@ -220,8 +220,8 @@ public class BankDAOImpl implements BankDAO {
 	}
 
 	@Override
-	public List<Bank> SelectAccountEmployee(String userBalance) {
-		List<Bank> itemArray = new ArrayList<>();
+	public List<User> SelectAccountEmployee(String userBalance) {
+		List<User> itemArray = new ArrayList<>();
 		String sql = "SELECT * from Users WHERE username = ?";
 	
 		try (Connection connection = DriverManager.getConnection(url,username,password)){
@@ -233,7 +233,7 @@ public class BankDAOImpl implements BankDAO {
 		
 		int i = 0;
 		while(rs.next()) {
-			Bank	todo = new Bank(rs.getString("username"),
+			User	todo = new User(rs.getString("username"),
 									rs.getString("user_password"),
 									rs.getDouble("balance"),
 //									rs.getBoolean("isApproved"),

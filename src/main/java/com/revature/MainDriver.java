@@ -12,7 +12,7 @@ import com.revature.repo.BankDummyDAOImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.models.Bank;
+import com.revature.models.User;
 
 public class MainDriver {
 

@@ -2,30 +2,30 @@ package com.revature.service;
 
 import java.util.List;
 
-import com.revature.models.Bank;
+import com.revature.models.User;
 
 public interface BankService {
 
 
-	public Boolean validateUser(Bank banker);
+	public Boolean validateUser(User banker);
 
-	public void addUser(Bank newBanker);
+	public void addUser(User newBanker);
 
-	public List<Bank> getAllUnapprovedAccounts();
+	public List<User> getAllUnapprovedAccounts();
 
 	public boolean setUserToApproved(String user);
 
-	public List<Bank> getAllAccounts();
+	public List<User> getAllAccounts();
 
-	public boolean isEmployee(Bank banker);
+	public boolean isEmployee(User banker);
 
-	public boolean validateUserEmployee(Bank employeeBank);
+	public boolean validateUserEmployee(User employeeBank);
 
 	public boolean deleteUser(String users);
 
-	public List<Bank> getSelectedAccount(Bank banker);
+	public List<User> getSelectedAccount(User banker);
 
-	public List<Bank> getSelectedAccountForEmployee(String userBalance);
+	public List<User> getSelectedAccountForEmployee(String userBalance);
 
 
 

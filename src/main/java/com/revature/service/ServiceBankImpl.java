@@ -3,7 +3,7 @@ package com.revature.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.models.Bank;
+import com.revature.models.User;
 import com.revature.repo.BankDAO;
 
 
@@ -18,7 +18,7 @@ public class ServiceBankImpl implements BankService {
 
 
 @Override
-	public Boolean validateUser(Bank banker) {
+	public Boolean validateUser(User banker) {
 	// TODO Auto-generated method stub
 //	System.out.println(banker.getUsername() + banker.getPassword());
 		if (database.logIn(banker)) {
@@ -33,7 +33,7 @@ public class ServiceBankImpl implements BankService {
 	}
 
 	@Override
-	public void addUser(Bank newBanker) {
+	public void addUser(User newBanker) {
 		
 		database.createUser(newBanker);
 		
@@ -42,9 +42,9 @@ public class ServiceBankImpl implements BankService {
 
 
 	@Override
-	public List<Bank> getAllUnapprovedAccounts() {
+	public List<User> getAllUnapprovedAccounts() {
 		
-		List<Bank> unapprovedAccounts= new ArrayList();
+		List<User> unapprovedAccounts= new ArrayList();
 		
 			unapprovedAccounts = database.selectAllUnapprovedAccounts();
 		// TODO Auto-generated method stub
@@ -62,7 +62,7 @@ public class ServiceBankImpl implements BankService {
 
 
 	@Override
-	public List<Bank> getAllAccounts() {
+	public List<User> getAllAccounts() {
 		// TODO Auto-generated method stub
 		
 		return database.selectAllAccounts();
@@ -74,7 +74,7 @@ public class ServiceBankImpl implements BankService {
 
 
 	@Override
-	public boolean isEmployee(Bank banker) {
+	public boolean isEmployee(User banker) {
 		
 		
 		// TODO Auto-generated method stub
@@ -83,7 +83,7 @@ public class ServiceBankImpl implements BankService {
 
 
 	@Override
-	public boolean validateUserEmployee(Bank employeeBank) {
+	public boolean validateUserEmployee(User employeeBank) {
 		// TODO Auto-generated method stub
 		return database.selectEmployee(employeeBank);
 	}
@@ -97,14 +97,14 @@ public class ServiceBankImpl implements BankService {
 
 
 	@Override
-	public List<Bank> getSelectedAccount(Bank banker) {
+	public List<User> getSelectedAccount(User banker) {
 		// TODO Auto-generated method stub
 		return database.SelectAccount(banker);
 	}
 
 
 	@Override
-	public List<Bank> getSelectedAccountForEmployee(String userBalance) {
+	public List<User> getSelectedAccountForEmployee(String userBalance) {
 		// TODO Auto-generated method stub
 		return database.SelectAccountEmployee(userBalance);
 	}

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.models.Bank;
-import com.revature.models.ToDoItem;
+
 
 public class BankDAOImpl implements BankDAO {
 	String server = "localhost";
@@ -124,20 +124,65 @@ boolean success = false;
 
 	@Override
 	public List<Bank> selectAllUnapprovedAccounts() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Bank> itemArray = new ArrayList<>();
+		try (Connection connection = DriverManager.getConnection(url,username,password))
+		{
+			String sql = "SELECT * FROM Users where isApproved = ?";
+			
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setBoolean(1, false);
+			
+			
+			ResultSet rs = ps.executeQuery();
+			
+			int i = 0;
+			while(rs.next()) {
+				Bank	todo = new Bank(rs.getString("username"),
+										rs.getString("user_password"),
+										rs.getDouble("balance"),
+//										rs.getBoolean("isApproved"),
+										rs.getBoolean("isEmployee"),
+										
+										rs.getString("accountType"));
+				itemArray.add(i,todo);
+												
+						i++;				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return itemArray;		
 	}
 
 	@Override
 	public boolean updateUserToApproved(String user) {
-		// TODO Auto-generated method stub
-		return false;
+		String sql = "UPDATE Users SET isApproved = ? WHERE username = ?";
+		boolean success = false;
+		try (Connection connection = DriverManager.getConnection(url,username,password)){
+		PreparedStatement ps = connection.prepareStatement(sql);		
+		ps.setBoolean(1, true);
+		ps.setString(2, user);
+		ps.execute();
+		success = true;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
 	}
 
 	@Override
 	public boolean deleteUser(String users) {
-		// TODO Auto-generated method stub
-		return false;
+		String sql = "DELETE from Users WHERE username = ?";
+		boolean success = false;
+		try (Connection connection = DriverManager.getConnection(url,username,password)){
+		PreparedStatement ps = connection.prepareStatement(sql);		
+		ps.setString(1, users);
+		ps.execute();
+		success = true;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
 	}
 
 }

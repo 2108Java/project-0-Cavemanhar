@@ -94,4 +94,18 @@ public class ServiceBankImpl implements BankService {
 		// TODO Auto-generated method stub
 		return database.deleteUser(users);
 	}
+
+
+	@Override
+	public List<Bank> getSelectedAccount(Bank banker) {
+		// TODO Auto-generated method stub
+		return database.SelectAccount(banker);
+	}
+
+
+	@Override
+	public List<Bank> getSelectedAccountForEmployee(String userBalance) {
+		// TODO Auto-generated method stub
+		return database.SelectAccountEmployee(userBalance);
+	}
 }

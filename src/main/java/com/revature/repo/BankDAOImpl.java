@@ -11,6 +11,7 @@ import java.util.List;
 import com.revature.models.Bank;
 
 
+
 public class BankDAOImpl implements BankDAO {
 	String server = "localhost";
 	String url = "jdbc:postgresql://" + server + "/postgres";
@@ -18,7 +19,7 @@ public class BankDAOImpl implements BankDAO {
 	String password = "p4ssw0rd";
 	@Override
 	public void createUser(Bank newBanker) {
-boolean success = false;
+
 		
 		
 		try (Connection connection = DriverManager.getConnection(url,username,password))
@@ -33,7 +34,7 @@ boolean success = false;
 			ps.setString(6, newBanker.getAccountType());
 			ps.execute();// execute the prepared statement from user to add to database
 			
-			success = true;	
+	
 			}		
 		catch(SQLException e) {
 			
@@ -44,12 +45,13 @@ boolean success = false;
 
 	@Override
 	public boolean logIn(Bank banker) {
-		String sql = "SELECT * from Users WHERE username = ? and user_password = ?";
+		String sql = "SELECT * from Users WHERE username = ? and user_password = ? and isApproved = ?";
 		boolean success = false;
 		try (Connection connection = DriverManager.getConnection(url,username,password)){
 		PreparedStatement ps = connection.prepareStatement(sql);		
 		ps.setString(1, banker.getUsername());
 		ps.setString(2, banker.getPassword());
+		ps.setBoolean(3, true);
 		ps.execute();
 		ResultSet rs = ps.executeQuery();
 		
@@ -172,6 +174,7 @@ boolean success = false;
 
 	@Override
 	public boolean deleteUser(String users) {
+	
 		String sql = "DELETE from Users WHERE username = ?";
 		boolean success = false;
 		try (Connection connection = DriverManager.getConnection(url,username,password)){
@@ -183,6 +186,68 @@ boolean success = false;
 			e.printStackTrace();
 		}
 		return success;
+	}
+
+	@Override
+	public List<Bank> SelectAccount(Bank banker) {
+		List<Bank> itemArray = new ArrayList<>();
+		String sql = "SELECT * from Users WHERE username = ?";
+	
+		try (Connection connection = DriverManager.getConnection(url,username,password)){
+		PreparedStatement ps = connection.prepareStatement(sql);		
+		ps.setString(1, banker.getUsername());
+		ps.execute();
+		
+		ResultSet rs = ps.executeQuery();
+		
+		int i = 0;
+		while(rs.next()) {
+			Bank	todo = new Bank(rs.getString("username"),
+									rs.getString("user_password"),
+									rs.getDouble("balance"),
+//									rs.getBoolean("isApproved"),
+									rs.getBoolean("isEmployee"),
+									
+									rs.getString("accountType"));
+			itemArray.add(i,todo);
+											
+					i++;				
+		}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return itemArray;
+	}
+
+	@Override
+	public List<Bank> SelectAccountEmployee(String userBalance) {
+		List<Bank> itemArray = new ArrayList<>();
+		String sql = "SELECT * from Users WHERE username = ?";
+	
+		try (Connection connection = DriverManager.getConnection(url,username,password)){
+		PreparedStatement ps = connection.prepareStatement(sql);		
+		ps.setString(1, userBalance);
+		ps.execute();
+		
+		ResultSet rs = ps.executeQuery();
+		
+		int i = 0;
+		while(rs.next()) {
+			Bank	todo = new Bank(rs.getString("username"),
+									rs.getString("user_password"),
+									rs.getDouble("balance"),
+//									rs.getBoolean("isApproved"),
+									rs.getBoolean("isEmployee"),
+									
+									rs.getString("accountType"));
+			itemArray.add(i,todo);
+											
+					i++;				
+		}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return itemArray;
 	}
 
 }

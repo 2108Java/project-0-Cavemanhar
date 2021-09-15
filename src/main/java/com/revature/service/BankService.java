@@ -23,6 +23,10 @@ public interface BankService {
 
 	public boolean deleteUser(String users);
 
+	public List<Bank> getSelectedAccount(Bank banker);
+
+	public List<Bank> getSelectedAccountForEmployee(String userBalance);
+
 
 
 	

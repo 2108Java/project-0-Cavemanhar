@@ -89,8 +89,27 @@ for(int i = 0; i< array.size(); i++) {
 				if (service.validateUser(banker)== true) {
 //					System.out.println("in first if");
 					
-						optionsMenuCustomer();
+						
 						System.out.println("Sorry not yet implemented");
+						boolean running3 = true;
+						
+						while(running3) {
+							optionsMenuCustomer();
+						String result3 = sc.nextLine();
+						
+						switch (result3) {
+						case "1":
+							
+							prettyDisplayOfArray(service.getSelectedAccount(banker));
+							break;
+						
+						case "8":
+							System.out.println(banker.getUsername() + " Logging out.");
+							running3 = false;
+							break;
+						}
+						
+						}
 						break;
 										
 					}
@@ -154,8 +173,16 @@ for(int i = 0; i< array.size(); i++) {
 									System.out.println("User not found!");
 								}
 								break;
+								
+							case "3":
+								System.out.println("Which user do you wish to view the balance of?(use username)");
+								String userBalance = sc.nextLine();
+								
+								prettyDisplayOfArray(service.getSelectedAccountForEmployee(userBalance));
+								break;
+								
 							case "8":
-								System.out.println("Employee Logging out.");
+								System.out.println(employeeBank.getUsername() + " Logging out.");
 								running2 = false;
 								break;
 							}

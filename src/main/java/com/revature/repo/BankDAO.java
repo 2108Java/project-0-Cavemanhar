@@ -22,4 +22,8 @@ public interface BankDAO {
 
 	public boolean deleteUser(String users);
 
+	public List<Bank> SelectAccount(Bank banker);
+
+	public List<Bank> SelectAccountEmployee(String userBalance);
+
 }

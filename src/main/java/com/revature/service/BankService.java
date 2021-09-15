@@ -27,6 +27,8 @@ public interface BankService {
 
 	public List<User> getSelectedAccountForEmployee(String userBalance);
 
+	public void addDeposit(User banker);
+
 
 
 	

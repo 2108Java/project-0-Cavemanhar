@@ -26,4 +26,6 @@ public interface BankDAO {
 
 	public List<User> SelectAccountEmployee(String userBalance);
 
+	public boolean insertDeposit(User banker);
+
 }

@@ -108,4 +108,13 @@ public class ServiceBankImpl implements BankService {
 		// TODO Auto-generated method stub
 		return database.SelectAccountEmployee(userBalance);
 	}
+
+
+	@Override
+	public void addDeposit(User banker) {
+		// TODO Auto-generated method stub
+		if (database.insertDeposit(banker)) {
+			
+		}
+	}
 }

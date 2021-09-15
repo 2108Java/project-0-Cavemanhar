@@ -38,31 +38,23 @@ for(int i = 0; i< array.size(); i++) {
 		System.out.println("1) Log in to Bank Account");
 		System.out.println("2) Apply for Bank Account");
 		System.out.println("3) Log in to Employee Account");
-//		System.out.println("4) Delete a todo");
-//		System.out.println("5) View all incomplete todos");
-//		System.out.println("6) View all complete todos");
-//		System.out.println("7) View a single todo");
-		System.out.println("8) Exit");
+		System.out.println("4) Exit");
 	}
 	private void optionsMenuEmployee() {
 		System.out.println("1) Approve new User");
 		System.out.println("2) Reject a new User");
 		System.out.println("3) View a Users Balance");
-//		System.out.println("4) Delete a todo");
-//		System.out.println("5) View all incomplete todos");
-//		System.out.println("6) View all complete todos");
-//		System.out.println("7) View a single todo");
-		System.out.println("8) Log Out");
+		System.out.println("4) View all Transactions");
+		System.out.println("5) Log Out");
 	}
 	private void optionsMenuCustomer() {
 		System.out.println("1) Current Balance");
-//		System.out.println("2) Make Deposit");
+		System.out.println("2) Make Deposit");
 //		System.out.println("3) Make Withdraw");
-//		System.out.println("4) Delete a todo");
-//		System.out.println("5) View all incomplete todos");
-//		System.out.println("6) View all complete todos");
-//		System.out.println("7) View a single todo");
-		System.out.println("8) Log Out");
+//		System.out.println("4) Make A Money Transfer");
+//		System.out.println("5) Approve Money Transfer");
+
+		System.out.println("6) Log Out");
 	}
 	public void Display() {
 		
@@ -90,7 +82,7 @@ for(int i = 0; i< array.size(); i++) {
 //					System.out.println("in first if");
 					
 						
-						System.out.println("Sorry not yet implemented");
+//						System.out.println("Sorry not yet implemented");
 						boolean running3 = true;
 						
 						while(running3) {
@@ -102,8 +94,14 @@ for(int i = 0; i< array.size(); i++) {
 							
 							prettyDisplayOfArray(service.getSelectedAccount(banker));
 							break;
-						
-						case "8":
+						case "2":
+							System.out.println("Please enter your a value you wish to deposit:");
+							Double deposit = Double.parseDouble(sc.nextLine());
+							banker.setDeposit(deposit);
+							service.addDeposit(banker);
+							break;
+							
+						case "6":
 							System.out.println(banker.getUsername() + " Logging out.");
 							running3 = false;
 							break;
@@ -181,7 +179,7 @@ for(int i = 0; i< array.size(); i++) {
 								prettyDisplayOfArray(service.getSelectedAccountForEmployee(userBalance));
 								break;
 								
-							case "8":
+							case "5":
 								System.out.println(employeeBank.getUsername() + " Logging out.");
 								running2 = false;
 								break;
@@ -191,7 +189,7 @@ for(int i = 0; i< array.size(); i++) {
 						System.out.println("Log in failed are you sure you are an employee");
 					}
 					break;
-				case "8":
+				case "4":
 					System.out.println("Thank you for banking with us.");
 					running = false;
 					break;

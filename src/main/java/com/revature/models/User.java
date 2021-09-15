@@ -10,6 +10,7 @@ public class User {
 	private String accountType;
 
 	private double withdraw;
+	
 	private double deposit;
 	
 	public User(String username, String password, double balance, boolean isApproved, boolean isEmployee,
@@ -54,6 +55,11 @@ public class User {
 		this.balance = balance;
 		this.accountType = accountType;
 		this.isApproved = false;
+	}
+
+
+	public User() {
+		// TODO Auto-generated constructor stub
 	}
 
 
@@ -103,6 +109,25 @@ public class User {
 
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
+	}
+	
+	public double getWithdraw() {
+		return withdraw;
+	}
+
+
+	public void setWithdraw(double withdraw) {
+		this.withdraw = withdraw;
+	}
+
+
+	public double getDeposit() {
+		return deposit;
+	}
+
+
+	public void setDeposit(double deposit) {
+		this.deposit = deposit;
 	}
 
 }

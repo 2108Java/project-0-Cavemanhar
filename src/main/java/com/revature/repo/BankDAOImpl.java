@@ -61,21 +61,23 @@ public class BankDAOImpl implements BankDAO {
 
 	@Override
 	public boolean logIn(User banker) {
-		String sql = "SELECT * from Users WHERE username = ? and user_password = ? and isApproved = ?";
+		String sql = "SELECT * from Users WHERE username = ? and user_password = ? and isapproved = ?";
 		boolean success = false;
 		try (Connection connection = DriverManager.getConnection(url,username,password)){
 		PreparedStatement ps = connection.prepareStatement(sql);		
 		ps.setString(1, banker.getUsername());
 		ps.setString(2, banker.getPassword());
 		ps.setBoolean(3, true);
-		ps.execute();
+		
 		ResultSet rs = ps.executeQuery();
 		
-		if (rs != null) {
-			success = true;
-		}else {
-			success = false;
-		}
+		while (rs.next()) {
+			if (rs.getBoolean("isApproved") == true) {
+				success = true;
+			}else {
+				success = false;
+			}
+			}
 	
 		}catch(SQLException e) {
 			e.printStackTrace();

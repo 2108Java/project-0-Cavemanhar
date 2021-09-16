@@ -97,8 +97,12 @@ for(int i = 0; i< array.size(); i++) {
 						case "2":
 							System.out.println("Please enter your a value you wish to Deposit:");
 							Double deposit = Double.parseDouble(sc.nextLine());
+							if (deposit > 0) {
 							banker.setDeposit(deposit);
 							service.addDeposit(banker);
+							}else{
+								System.out.println("Sorry that value is negative please try again");
+							}
 							break;
 						case "3":
 							

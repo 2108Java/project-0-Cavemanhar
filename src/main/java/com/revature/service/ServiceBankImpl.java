@@ -114,7 +114,7 @@ public class ServiceBankImpl implements BankService {
 	public void addDeposit(User banker) {
 		// TODO Auto-generated method stub
 		if (database.insertDeposit(banker)) {
-			
+			System.out.println("Successful deposit");
 		}
 	}
 
@@ -122,8 +122,8 @@ public class ServiceBankImpl implements BankService {
 	@Override
 	public void addWithdraw(User banker) {
 		// TODO Auto-generated method stub
-			if (database.insertWithdraw(banker)) {
-			
+			if (database.insertWithdraw(banker) == false) {
+				System.out.println("transaction failed overdraft with current amount");
 			}
 	}
 }

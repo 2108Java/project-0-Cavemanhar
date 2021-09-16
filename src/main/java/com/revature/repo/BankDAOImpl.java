@@ -273,7 +273,7 @@ public class BankDAOImpl implements BankDAO {
 		
 		BankDAOImplDW Deposit = new BankDAOImplDW();
 	
-		
+		Boolean success = false;
 		User currentCustomer = Deposit.selectCustomer(banker);
 		System.out.println(banker.getDeposit());
 		currentCustomer.setBalance( banker.getDeposit() + currentCustomer.getBalance()); 
@@ -291,20 +291,20 @@ public class BankDAOImpl implements BankDAO {
 			ps.setDouble(3, banker.getWithdraw());	
 			ps.setDouble(4, currentCustomer.getBalance());
 			ps.execute();// execute the prepared statement from user to add to database
-			
+			success = true;
 	
 			}		
 		catch(SQLException e) {
 			
 			e.printStackTrace();
 		}
-		return false;
+		return success;
 	}
 
 	@Override
 	public boolean insertWithdraw(User banker) {
 		BankDAOImplDW withdraw = new BankDAOImplDW();
-	
+		Boolean success = false;
 		
 		User currentCustomer = withdraw.selectCustomer(banker);
 		System.out.println(banker.getDeposit());
@@ -314,7 +314,7 @@ public class BankDAOImpl implements BankDAO {
 		System.out.println(currentCustomer.getBalance());
 		
 		withdraw.updateUser(currentCustomer);
-		
+		success = true;
 		try (Connection connection = DriverManager.getConnection(url,username,password))
 		{
 			String sql= "Insert INTO transactions(username_foreign_id ,deposit ,withdrawl ,balance) Values (?,?,?,?)";// send sql to the database	
@@ -334,7 +334,7 @@ public class BankDAOImpl implements BankDAO {
 		}else {
 			
 		}
-		return false;
+		return success;
 	}
 
 }

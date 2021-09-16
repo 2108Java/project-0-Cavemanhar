@@ -28,4 +28,6 @@ public interface BankDAO {
 
 	public boolean insertDeposit(User banker);
 
+	public boolean insertWithdraw(User banker);
+
 }

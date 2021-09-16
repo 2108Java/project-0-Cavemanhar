@@ -269,7 +269,7 @@ public class BankDAOImpl implements BankDAO {
 	@Override
 	public boolean insertDeposit(User banker) {
 		
-		BankDAOImplDeposit Deposit = new BankDAOImplDeposit();
+		BankDAOImplDW Deposit = new BankDAOImplDW();
 	
 		
 		User currentCustomer = Deposit.selectCustomer(banker);
@@ -295,6 +295,42 @@ public class BankDAOImpl implements BankDAO {
 		catch(SQLException e) {
 			
 			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean insertWithdraw(User banker) {
+		BankDAOImplDW withdraw = new BankDAOImplDW();
+	
+		
+		User currentCustomer = withdraw.selectCustomer(banker);
+		System.out.println(banker.getDeposit());
+		if (currentCustomer.getBalance() > banker.getWithdraw()) {
+		currentCustomer.setBalance(  currentCustomer.getBalance() - banker.getWithdraw()); 
+		
+		System.out.println(currentCustomer.getBalance());
+		
+		withdraw.updateUser(currentCustomer);
+		
+		try (Connection connection = DriverManager.getConnection(url,username,password))
+		{
+			String sql= "Insert INTO transactions(username_foreign_id ,deposit ,withdrawl ,balance) Values (?,?,?,?)";// send sql to the database	
+			PreparedStatement ps = connection.prepareStatement(sql);//get ready to send 
+			ps.setString(1, banker.getUsername());
+			ps.setDouble(2, banker.getDeposit());
+			ps.setDouble(3, banker.getWithdraw());	
+			ps.setDouble(4, currentCustomer.getBalance());
+			ps.execute();// execute the prepared statement from user to add to database
+			
+	
+			}		
+		catch(SQLException e) {
+			
+			e.printStackTrace();
+		}
+		}else {
+			
 		}
 		return false;
 	}

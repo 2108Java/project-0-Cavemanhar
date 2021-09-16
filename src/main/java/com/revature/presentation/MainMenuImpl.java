@@ -50,7 +50,7 @@ for(int i = 0; i< array.size(); i++) {
 	private void optionsMenuCustomer() {
 		System.out.println("1) Current Balance");
 		System.out.println("2) Make Deposit");
-//		System.out.println("3) Make Withdraw");
+		System.out.println("3) Make Withdraw");
 //		System.out.println("4) Make A Money Transfer");
 //		System.out.println("5) Approve Money Transfer");
 
@@ -95,12 +95,23 @@ for(int i = 0; i< array.size(); i++) {
 							prettyDisplayOfArray(service.getSelectedAccount(banker));
 							break;
 						case "2":
-							System.out.println("Please enter your a value you wish to deposit:");
+							System.out.println("Please enter your a value you wish to Deposit:");
 							Double deposit = Double.parseDouble(sc.nextLine());
 							banker.setDeposit(deposit);
 							service.addDeposit(banker);
 							break;
+						case "3":
 							
+							System.out.println("Please enter your a value you wish to Withdraw:");
+							Double withdraw = Double.parseDouble(sc.nextLine());
+							if (withdraw > 0) {
+							banker.setWithdraw(withdraw);
+							service.addWithdraw(banker);
+							}else {
+								System.out.println("Sorry that value is negative please try again");
+							}
+							
+							break;
 						case "6":
 							System.out.println(banker.getUsername() + " Logging out.");
 							running3 = false;

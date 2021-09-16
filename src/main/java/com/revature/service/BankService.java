@@ -29,6 +29,8 @@ public interface BankService {
 
 	public void addDeposit(User banker);
 
+	public void addWithdraw(User banker);
+
 
 
 	

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import com.revature.models.User;
 
-public class BankDAOImplDeposit {
+public class BankDAOImplDW {
 	String server = "localhost";
 	String url = "jdbc:postgresql://" + server + "/postgres";
 	String username = "postgres";

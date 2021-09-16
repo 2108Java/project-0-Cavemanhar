@@ -117,4 +117,13 @@ public class ServiceBankImpl implements BankService {
 			
 		}
 	}
+
+
+	@Override
+	public void addWithdraw(User banker) {
+		// TODO Auto-generated method stub
+			if (database.insertWithdraw(banker)) {
+			
+			}
+	}
 }

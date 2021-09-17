@@ -2,6 +2,10 @@ package com.revature.models;
 
 public class User {
 	
+	private int id;
+
+
+	private String name;
 	private String username;
 	private String password;
 	private double balance;
@@ -58,8 +62,43 @@ public class User {
 	}
 
 
+	public User(int id, String name, String username, String password, double balance, String accountType) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.username = username;
+		this.password = password;
+		this.balance = balance;
+		this.accountType = accountType;
+		this.isApproved = false;
+		this.isEmployee = false;
+	}
+
+	public User( String name, String username, String password, double balance, String accountType) {
+		super();
+		
+		this.name = name;
+		this.username = username;
+		this.password = password;
+		this.balance = balance;
+		this.accountType = accountType;
+		this.isApproved = false;
+		this.isEmployee = false;
+	}
 	public User() {
 		// TODO Auto-generated constructor stub
+	}
+
+
+	
+
+
+	public User(String username, double balance, double withdraw, double deposit) {
+		super();
+		this.username = username;
+		this.balance = balance;
+		this.withdraw = withdraw;
+		this.deposit = deposit;
 	}
 
 
@@ -129,5 +168,26 @@ public class User {
 	public void setDeposit(double deposit) {
 		this.deposit = deposit;
 	}
+	
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 
 }

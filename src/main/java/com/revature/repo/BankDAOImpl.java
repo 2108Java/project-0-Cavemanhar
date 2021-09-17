@@ -337,4 +337,35 @@ public class BankDAOImpl implements BankDAO {
 		return success;
 	}
 
+	@Override
+	public List<User> selectAllTransactions() {
+		List<User> itemArray = new ArrayList<>();
+		String sql = "SELECT * from Transactions";
+	
+		try (Connection connection = DriverManager.getConnection(url,username,password)){
+		PreparedStatement ps = connection.prepareStatement(sql);		
+		
+		
+		ResultSet rs = ps.executeQuery();
+		
+		int i = 0;
+		while(rs.next()) {
+			User	todo = new User(rs.getString("username_foreign_id"),
+									rs.getDouble("balance"),
+									rs.getDouble("withdrawl"),
+//									rs.getBoolean("isApproved"),
+									rs.getDouble("deposit")
+			);
+									
+									
+			itemArray.add(i,todo);
+											
+					i++;				
+		}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return itemArray;
+	}
+
 }

@@ -30,4 +30,6 @@ public interface BankDAO {
 
 	public boolean insertWithdraw(User banker);
 
+	public List<User> selectAllTransactions();
+
 }

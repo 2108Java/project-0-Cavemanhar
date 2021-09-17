@@ -18,13 +18,12 @@ public class MainMenuImpl implements MainMenu{
 	}
 	
 	private void prettyDisplayOfArray(List<User> array) {
-for(int i = 0; i< array.size(); i++) {
+		for(int i = 0; i< array.size(); i++) {
 			
 			if(array.get(i) != null) {
-				System.out.println(array.get(i).getUsername());
-				System.out.println(array.get(i).getBalance());
-				System.out.println(array.get(i).getAccountType());
-				System.out.println(array.get(i).isApproved());
+				System.out.println("Username: " + array.get(i).getUsername());
+				System.out.println("Balance: " +array.get(i).getBalance());
+				System.out.println("AccountType: " +array.get(i).getAccountType());
 				System.out.println("");
 				
 			}
@@ -32,7 +31,20 @@ for(int i = 0; i< array.size(); i++) {
 		}
 	}
 
-	
+	private void prettyDisplayOfTransactions(List<User> array) {
+		for(int i = 0; i< array.size(); i++) {
+			
+			if(array.get(i) != null) {
+				System.out.println("Username: " +array.get(i).getUsername());
+				System.out.println("Balance: " +array.get(i).getBalance());
+				System.out.println("Deposit: " +array.get(i).getDeposit());
+				System.out.println("Withdrawl: " +array.get(i).getWithdraw());
+				System.out.println("");
+				
+			}
+			
+		}
+	}
 	
 	private void optionsMenu() {
 		System.out.println("1) Log in to Bank Account");
@@ -51,10 +63,11 @@ for(int i = 0; i< array.size(); i++) {
 		System.out.println("1) Current Balance");
 		System.out.println("2) Make Deposit");
 		System.out.println("3) Make Withdraw");
-//		System.out.println("4) Make A Money Transfer");
-//		System.out.println("5) Approve Money Transfer");
+		System.out.println("4) Make A new Account");
+//		System.out.println("5) Make A Money Transfer");
+//		System.out.println("6) Approve Money Transfer");
 
-		System.out.println("6) Log Out");
+		System.out.println("7) Log Out");
 	}
 	public void Display() {
 		
@@ -83,9 +96,9 @@ for(int i = 0; i< array.size(); i++) {
 					
 						
 //						System.out.println("Sorry not yet implemented");
-						boolean running3 = true;
+						boolean userLoggedIn = true;
 						
-						while(running3) {
+						while(userLoggedIn) {
 							optionsMenuCustomer();
 						String result3 = sc.nextLine();
 						
@@ -118,7 +131,7 @@ for(int i = 0; i< array.size(); i++) {
 							break;
 						case "6":
 							System.out.println(banker.getUsername() + " Logging out.");
-							running3 = false;
+							userLoggedIn = false;
 							break;
 						}
 						
@@ -132,19 +145,23 @@ for(int i = 0; i< array.size(); i++) {
 					
 					break;
 				case "2":
+					System.out.println("Please enter your Name for your new account:");
+					String newName = sc.nextLine();
 					System.out.println("Please enter your Username for your new account:");
 					String newUsername = sc.nextLine();
 					System.out.println("Please enter your Password for your new account:");
 					String newPassword = sc.nextLine();
+					System.out.println("Please enter your account type for your new account as either Savings or Checking:");
+					String newAccountType = sc.nextLine();
+					User newBanker = new User();
+					
 					System.out.println("Please enter your a value you wish to initially deposit:");
 					Double firstDeposit = Double.parseDouble(sc.nextLine());
 //					System.out.println("Please enter if you are a employee:");
 //					Boolean employee = Boolean.parseBoolean(sc.nextLine());
-					System.out.println("Please enter your account type for your new account as either Savings or Checking:");
-					String newAccountType = sc.nextLine();
-					User newBanker = new User(newUsername,newPassword,firstDeposit,false, newAccountType);
 					
-					service.addUser(newBanker);
+						newBanker =new User(newName, newUsername, newPassword, firstDeposit, newAccountType);
+						service.addUser(newBanker);
 					
 					prettyDisplayOfArray(service.getAllAccounts());
 					break;
@@ -156,9 +173,9 @@ for(int i = 0; i< array.size(); i++) {
 					User employeeBank = new User(usernameEmployee, passwordEmployee);
 //					System.out.println(employeeBank.getUsername());
 					if (service.validateUserEmployee(employeeBank)== true) {
-						boolean running2 = true;
+						boolean employeeLoggedIn = true;
 						
-						while(running2) {
+						while(employeeLoggedIn) {
 						optionsMenuEmployee();
 						String result2 = sc.nextLine();
 						
@@ -193,10 +210,12 @@ for(int i = 0; i< array.size(); i++) {
 								
 								prettyDisplayOfArray(service.getSelectedAccountForEmployee(userBalance));
 								break;
-								
+							case "4":
+								prettyDisplayOfTransactions(service.getAllTransactions());
+								break;
 							case "5":
 								System.out.println(employeeBank.getUsername() + " Logging out.");
-								running2 = false;
+								employeeLoggedIn = false;
 								break;
 							}
 						}
@@ -223,6 +242,8 @@ for(int i = 0; i< array.size(); i++) {
 			
 			
 	}
+
+
 }
 
 

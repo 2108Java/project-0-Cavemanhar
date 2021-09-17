@@ -126,4 +126,11 @@ public class ServiceBankImpl implements BankService {
 				System.out.println("transaction failed overdraft with current amount");
 			}
 	}
+
+
+	@Override
+	public List<User> getAllTransactions() {
+		// TODO Auto-generated method stub
+		return database.selectAllTransactions();
+	}
 }

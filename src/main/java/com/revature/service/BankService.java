@@ -31,6 +31,8 @@ public interface BankService {
 
 	public void addWithdraw(User banker);
 
+	public List<User> getAllTransactions();
+
 
 
 	

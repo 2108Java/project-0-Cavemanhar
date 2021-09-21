@@ -33,6 +33,14 @@ public interface BankService {
 
 	public List<User> getAllTransactions();
 
+	public void addCheckingDeposit(User banker);
+
+	public void addCheckingWithdraw(User banker);
+
+	public String selectAccountType(User banker);
+
+	public void addUserAccount(User banker, int value);
+
 
 
 	

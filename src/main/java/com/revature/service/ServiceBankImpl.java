@@ -133,4 +133,34 @@ public class ServiceBankImpl implements BankService {
 		// TODO Auto-generated method stub
 		return database.selectAllTransactions();
 	}
+
+
+	@Override
+	public void addCheckingDeposit(User banker) {
+		if (database.insertCheckingDeposit(banker)) {
+			System.out.println("Successful deposit");
+		}
+	}
+
+
+	@Override
+	public void addCheckingWithdraw(User banker) {
+		if (database.insertCheckingWithdraw(banker) == false) {
+			System.out.println("transaction failed overdraft with current amount");
+		}
+	}
+
+
+	@Override
+	public String selectAccountType(User banker) {
+		// TODO Auto-generated method stub
+		return database.selectAccountType(banker);
+	}
+
+
+	@Override
+	public void addUserAccount(User banker, int value) {
+		database.updateUserAccount(banker, value);
+		
+	}
 }

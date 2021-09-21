@@ -20,18 +20,91 @@ public class BankDAOImpl implements BankDAO {
 	@Override
 	public void createUser(User newBanker) {
 
-		
-		
+		if(newBanker.getAccountType().equals("Savings")) {
+			try (Connection connection = DriverManager.getConnection(url,username,password))
+			{
+				String sql= "Insert INTO Users(username,user_password,isApproved,isEmployee,savings_balance,accountType) Values (?,?,?,?,?,?)";// send sql to the database	
+				PreparedStatement ps = connection.prepareStatement(sql);//get ready to send 
+				ps.setString(1, newBanker.getUsername());
+				ps.setString(2, newBanker.getPassword());
+				ps.setBoolean(3, newBanker.isApproved());	
+				ps.setBoolean(4, newBanker.isEmployee());
+				ps.setDouble(5, newBanker.getSavingsBalance());
+				ps.setString(6, "Savings");
+				ps.execute();// execute the prepared statement from user to add to database
+				
+					connection.close();
+				}		
+			catch(SQLException e) {
+				
+				e.printStackTrace();
+			}
+			try (Connection connection = DriverManager.getConnection(url,username,password))
+			{
+				String sql= "Insert INTO transactions(username_foreign_id ,savings_deposit ,savings_withdrawl ,savings_balance) Values (?,?,?,?)";// send sql to the database	
+				PreparedStatement ps = connection.prepareStatement(sql);//get ready to send 
+				ps.setString(1, newBanker.getUsername());
+				ps.setDouble(2, newBanker.getSavingsDeposit());
+				ps.setDouble(3, newBanker.getSavingsWithdraw());	
+				ps.setDouble(4, newBanker.getSavingsBalance());
+				ps.execute();// execute the prepared statement from user to add to database
+				
+				connection.close();
+				}		
+			catch(SQLException e) {
+				
+				e.printStackTrace();
+			}
+			
+		}else if(newBanker.getAccountType().equals("Checking")) {
+			
+			try (Connection connection = DriverManager.getConnection(url,username,password))
+			{
+				String sql= "Insert INTO Users(username,user_password,isApproved,isEmployee,checking_balance,accountType) Values (?,?,?,?,?,?)";// send sql to the database	
+				PreparedStatement ps = connection.prepareStatement(sql);//get ready to send 
+				ps.setString(1, newBanker.getUsername());
+				ps.setString(2, newBanker.getPassword());
+				ps.setBoolean(3, newBanker.isApproved());	
+				ps.setBoolean(4, newBanker.isEmployee());
+				ps.setDouble(5, newBanker.getCheckingBalance());
+				ps.setString(6, "Checking");
+				ps.execute();// execute the prepared statement from user to add to database
+				
+					connection.close();
+				}		
+			catch(SQLException e) {
+				
+				e.printStackTrace();
+			}
+			try (Connection connection = DriverManager.getConnection(url,username,password))
+			{
+				String sql= "Insert INTO transactions(username_foreign_id ,checking_deposit ,checking_withdrawl ,checking_balance) Values (?,?,?,?)";// send sql to the database	
+				PreparedStatement ps = connection.prepareStatement(sql);//get ready to send 
+				ps.setString(1, newBanker.getUsername());
+				ps.setDouble(2, newBanker.getCheckingDeposit());
+				ps.setDouble(3, newBanker.getCheckingWithdraw());	
+				ps.setDouble(4, newBanker.getCheckingBalance());
+				ps.execute();// execute the prepared statement from user to add to database
+				
+				connection.close();
+				}		
+			catch(SQLException e) {
+				
+				e.printStackTrace();
+			}
+		}else {
+			
 		try (Connection connection = DriverManager.getConnection(url,username,password))
 		{
-			String sql= "Insert INTO Users(username,user_password,isApproved,isEmployee,balance,accountType) Values (?,?,?,?,?,?)";// send sql to the database	
+			String sql= "Insert INTO Users(username, user_password, isApproved, isEmployee, savings_balance, checking_balance, accountType) Values (?,?,?,?,?,?,?)";// send sql to the database	
 			PreparedStatement ps = connection.prepareStatement(sql);//get ready to send 
 			ps.setString(1, newBanker.getUsername());
 			ps.setString(2, newBanker.getPassword());
 			ps.setBoolean(3, newBanker.isApproved());	
 			ps.setBoolean(4, newBanker.isEmployee());
-			ps.setDouble(5, newBanker.getBalance());
-			ps.setString(6, newBanker.getAccountType());
+			ps.setDouble(5, newBanker.getSavingsBalance());
+			ps.setDouble(6, newBanker.getCheckingBalance());
+			ps.setString(7, "Both");
 			ps.execute();// execute the prepared statement from user to add to database
 			
 	
@@ -42,12 +115,15 @@ public class BankDAOImpl implements BankDAO {
 		}
 		try (Connection connection = DriverManager.getConnection(url,username,password))
 		{
-			String sql= "Insert INTO transactions(username_foreign_id ,deposit ,withdrawl ,balance) Values (?,?,?,?)";// send sql to the database	
+			String sql= "Insert INTO transactions(username_foreign_id ,savings_deposit ,savings_withdrawl ,savings_balance, checking_deposit ,checking_withdrawl ,checking_balance) Values (?,?,?,?)";// send sql to the database	
 			PreparedStatement ps = connection.prepareStatement(sql);//get ready to send 
 			ps.setString(1, newBanker.getUsername());
-			ps.setDouble(2, newBanker.getDeposit());
-			ps.setDouble(3, newBanker.getWithdraw());	
-			ps.setDouble(4, newBanker.getBalance());
+			ps.setDouble(2, newBanker.getSavingsDeposit());
+			ps.setDouble(3, newBanker.getSavingsWithdraw());	
+			ps.setDouble(4, newBanker.getSavingsBalance());
+			ps.setDouble(2, newBanker.getCheckingDeposit());
+			ps.setDouble(3, newBanker.getCheckingWithdraw());	
+			ps.setDouble(4, newBanker.getCheckingBalance());
 			ps.execute();// execute the prepared statement from user to add to database
 			
 	
@@ -56,7 +132,7 @@ public class BankDAOImpl implements BankDAO {
 			
 			e.printStackTrace();
 		}
-		
+		}
 	}
 
 	@Override
@@ -100,10 +176,8 @@ public class BankDAOImpl implements BankDAO {
 			while(rs.next()) {
 				User	todo = new User(rs.getString("username"),
 										rs.getString("user_password"),
-										rs.getDouble("balance"),
-//										rs.getBoolean("isApproved"),
-										rs.getBoolean("isEmployee"),
-										
+										rs.getDouble("savings_balance"),
+										rs.getDouble("checking_balance"),
 										rs.getString("accountType"));
 				itemArray.add(i,todo);
 												
@@ -159,10 +233,8 @@ public class BankDAOImpl implements BankDAO {
 			while(rs.next()) {
 				User	todo = new User(rs.getString("username"),
 										rs.getString("user_password"),
-										rs.getDouble("balance"),
-//										rs.getBoolean("isApproved"),
-										rs.getBoolean("isEmployee"),
-										
+										rs.getDouble("savings_balance"),
+										rs.getDouble("checking_balance"),
 										rs.getString("accountType"));
 				itemArray.add(i,todo);
 												
@@ -222,10 +294,8 @@ public class BankDAOImpl implements BankDAO {
 		while(rs.next()) {
 			User	todo = new User(rs.getString("username"),
 									rs.getString("user_password"),
-									rs.getDouble("balance"),
-//									rs.getBoolean("isApproved"),
-									rs.getBoolean("isEmployee"),
-									
+									rs.getDouble("savings_balance"),
+									rs.getDouble("checking_balance"),
 									rs.getString("accountType"));
 			itemArray.add(i,todo);
 											
@@ -252,12 +322,12 @@ public class BankDAOImpl implements BankDAO {
 		int i = 0;
 		while(rs.next()) {
 			User	todo = new User(rs.getString("username"),
-									rs.getString("user_password"),
-									rs.getDouble("balance"),
+									rs.getString("user_password"));
+//									rs.getDouble("balance"),
 //									rs.getBoolean("isApproved"),
-									rs.getBoolean("isEmployee"),
+//									rs.getBoolean("isEmployee"),
 									
-									rs.getString("accountType"));
+//									rs.getString("accountType"));
 			itemArray.add(i,todo);
 											
 					i++;				
@@ -275,21 +345,21 @@ public class BankDAOImpl implements BankDAO {
 	
 		Boolean success = false;
 		User currentCustomer = Deposit.selectCustomer(banker);
-		System.out.println(banker.getDeposit());
-		currentCustomer.setBalance( banker.getDeposit() + currentCustomer.getBalance()); 
+		System.out.println(banker.getSavingsDeposit());
+		currentCustomer.setSavingsBalance( banker.getSavingsDeposit() + currentCustomer.getSavingsBalance()); 
 		
-		System.out.println(currentCustomer.getBalance());
+		System.out.println(currentCustomer.getSavingsBalance());
 		
 		Deposit.updateUser(currentCustomer);
 		
 		try (Connection connection = DriverManager.getConnection(url,username,password))
 		{
-			String sql= "Insert INTO transactions(username_foreign_id ,deposit ,withdrawl ,balance) Values (?,?,?,?)";// send sql to the database	
+			String sql= "Insert INTO transactions(username_foreign_id, savings_deposit, savings_withdrawl, savings_balance) Values (?,?,?,?)";// send sql to the database	
 			PreparedStatement ps = connection.prepareStatement(sql);//get ready to send 
 			ps.setString(1, banker.getUsername());
-			ps.setDouble(2, banker.getDeposit());
-			ps.setDouble(3, banker.getWithdraw());	
-			ps.setDouble(4, currentCustomer.getBalance());
+			ps.setDouble(2, banker.getSavingsDeposit());
+			ps.setDouble(3, banker.getSavingsWithdraw());	
+			ps.setDouble(4, currentCustomer.getSavingsBalance());
 			ps.execute();// execute the prepared statement from user to add to database
 			success = true;
 	
@@ -307,22 +377,22 @@ public class BankDAOImpl implements BankDAO {
 		Boolean success = false;
 		
 		User currentCustomer = withdraw.selectCustomer(banker);
-		System.out.println(banker.getDeposit());
-		if (currentCustomer.getBalance() > banker.getWithdraw()) {
-		currentCustomer.setBalance(  currentCustomer.getBalance() - banker.getWithdraw()); 
+		System.out.println(banker.getSavingsDeposit());
+		if (currentCustomer.getSavingsBalance() > banker.getSavingsWithdraw()) {
+		currentCustomer.setSavingsBalance(  currentCustomer.getSavingsBalance() - banker.getSavingsWithdraw()); 
 		
-		System.out.println(currentCustomer.getBalance());
+		System.out.println(currentCustomer.getSavingsBalance());
 		
 		withdraw.updateUser(currentCustomer);
 		success = true;
 		try (Connection connection = DriverManager.getConnection(url,username,password))
 		{
-			String sql= "Insert INTO transactions(username_foreign_id ,deposit ,withdrawl ,balance) Values (?,?,?,?)";// send sql to the database	
+			String sql= "Insert INTO transactions(username_foreign_id,savings_deposit, savings_withdrawl, savings_balance) Values (?,?,?,?)";// send sql to the database	
 			PreparedStatement ps = connection.prepareStatement(sql);//get ready to send 
 			ps.setString(1, banker.getUsername());
-			ps.setDouble(2, banker.getDeposit());
-			ps.setDouble(3, banker.getWithdraw());	
-			ps.setDouble(4, currentCustomer.getBalance());
+			ps.setDouble(2, banker.getSavingsDeposit());
+			ps.setDouble(3, banker.getSavingsWithdraw());	
+			ps.setDouble(4, currentCustomer.getSavingsBalance());
 			ps.execute();// execute the prepared statement from user to add to database
 			
 	
@@ -351,10 +421,12 @@ public class BankDAOImpl implements BankDAO {
 		int i = 0;
 		while(rs.next()) {
 			User	todo = new User(rs.getString("username_foreign_id"),
-									rs.getDouble("balance"),
-									rs.getDouble("withdrawl"),
-//									rs.getBoolean("isApproved"),
-									rs.getDouble("deposit")
+									rs.getDouble("savings_balance"),
+									rs.getDouble("savings_withdrawl"),
+									rs.getDouble("savings_deposit"),
+									rs.getDouble("checking_balance"),
+									rs.getDouble("checking_withdrawl"),
+									rs.getDouble("checking_deposit")
 			);
 									
 									
@@ -366,6 +438,139 @@ public class BankDAOImpl implements BankDAO {
 			e.printStackTrace();
 		}
 		return itemArray;
+	}
+
+	@Override
+	public boolean insertCheckingWithdraw(User banker) {
+		BankDAOImplDW withdraw = new BankDAOImplDW();
+		Boolean success = false;
+		
+		User currentCustomer = withdraw.selectCustomer(banker);
+		System.out.println(banker.getSavingsDeposit());
+		if (currentCustomer.getSavingsBalance() > banker.getSavingsWithdraw()) {
+		currentCustomer.setSavingsBalance(  currentCustomer.getSavingsBalance() - banker.getSavingsWithdraw()); 
+		
+		System.out.println(currentCustomer.getSavingsBalance());
+		
+		withdraw.updateUser(currentCustomer);
+		success = true;
+		try (Connection connection = DriverManager.getConnection(url,username,password))
+		{
+			String sql= "Insert INTO transactions(username_foreign_id, checking_deposit, checking_withdrawl, checking_balance) Values (?,?,?,?)";// send sql to the database	
+			PreparedStatement ps = connection.prepareStatement(sql);//get ready to send 
+			ps.setString(1, banker.getUsername());
+			ps.setDouble(2, banker.getSavingsDeposit());
+			ps.setDouble(3, banker.getSavingsWithdraw());	
+			ps.setDouble(4, currentCustomer.getSavingsBalance());
+			ps.execute();// execute the prepared statement from user to add to database
+			
+	
+			}		
+		catch(SQLException e) {
+			
+			e.printStackTrace();
+		}
+		}else {
+			
+		}
+		return success;
+	}
+
+	@Override
+	public boolean insertCheckingDeposit(User banker) {
+		BankDAOImplDW Deposit = new BankDAOImplDW();
+		
+		Boolean success = false;
+		User currentCustomer = Deposit.selectCustomer(banker);
+		System.out.println(banker.getCheckingDeposit());
+		currentCustomer.setCheckingBalance( banker.getCheckingDeposit() + currentCustomer.getCheckingBalance()); 
+		
+		System.out.println(currentCustomer.getCheckingBalance());
+		
+		Deposit.updateUser(currentCustomer);
+		
+		try (Connection connection = DriverManager.getConnection(url,username,password))
+		{
+			String sql= "Insert INTO transactions(username_foreign_id , checking_deposit, checking_withdrawl , checking_balance) Values (?,?,?,?)";// send sql to the database	
+			PreparedStatement ps = connection.prepareStatement(sql);//get ready to send 
+			ps.setString(1, banker.getUsername());
+			ps.setDouble(2, banker.getCheckingDeposit());
+			ps.setDouble(3, banker.getCheckingWithdraw());	
+			ps.setDouble(4, currentCustomer.getCheckingBalance());
+			ps.execute();// execute the prepared statement from user to add to database
+			success = true;
+	
+			}		
+		catch(SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return success;
+	}
+
+	@Override
+	public String selectAccountType(User banker) {
+		
+		String account = "";
+		try (Connection connection = DriverManager.getConnection(url,username,password))
+		{
+			String sql = "SELECT * FROM Users where username = ?";
+			
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, banker.getUsername());
+			ResultSet rs = ps.executeQuery();
+			
+			
+			while(rs.next()) {
+				
+										
+										
+				 account = rs.getString("accountType");
+				
+												
+										
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return account;
+	}
+
+	@Override
+	public void updateUserAccount(User banker, int value) {
+		
+		if (value == 1) {
+			
+
+			String sql = "UPDATE Users SET accounttype = ?, savings_balance = ? WHERE username = ?";
+			
+			try (Connection connection = DriverManager.getConnection(url,username,password)){
+			PreparedStatement ps = connection.prepareStatement(sql);		
+			ps.setString(1, "Both");
+			ps.setDouble(2, banker.getSavingsBalance());
+			ps.setString(3, banker.getUsername());
+			ps.execute();
+			connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}else {
+
+			String sql = "UPDATE Users SET accounttype = ?, checking_balance = ? WHERE username = ?";
+			
+			try (Connection connection = DriverManager.getConnection(url,username,password)){
+			PreparedStatement ps = connection.prepareStatement(sql);		
+			ps.setString(1, "Both");
+			ps.setDouble(2, banker.getCheckingBalance());
+			ps.setString(3, banker.getUsername());
+			ps.execute();
+			connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }

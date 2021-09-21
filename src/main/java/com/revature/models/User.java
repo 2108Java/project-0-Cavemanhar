@@ -1,5 +1,7 @@
 package com.revature.models;
 
+
+
 public class User {
 	
 	private int id;
@@ -8,99 +10,86 @@ public class User {
 	private String name;
 	private String username;
 	private String password;
-	private double balance;
+	private double savingsBalance;
 	private boolean isApproved;
 	private boolean isEmployee;
 	private String accountType;
+	private double savingsWithdraw;
+	private double checkingBalance;
+	private double savingsDeposit;
+	private double checkingWithdraw;
+	
+	private double checkingDeposit;
+	
+	
 
-	private double withdraw;
-	
-	private double deposit;
-	
-	public User(String username, String password, double balance, boolean isApproved, boolean isEmployee,
-			double withdraw, double deposit) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.balance = balance;
-		this.isApproved = isApproved;
-		this.isEmployee = isEmployee;
-		this.withdraw = withdraw;
-		this.deposit = deposit;
-	}
 
-	
-	public User(String username, String password, double balance,  boolean isEmployee, String accountType) {
+
+
+	public User() {
 		super();
-		this.username = username;
-		this.password = password;
-		this.balance = balance;
-		this.accountType = accountType;
-		this.isEmployee = isEmployee;
-		this.isApproved = false;
-		
 	}
 
 	public User(String username, String password) {
-		this.username = username;
-		this.password = password;
-	}
-	public User(String username, String password, boolean isEmployee) {
-		this.username = username;
-		this.password = password;
-		this.isEmployee = isEmployee;
-		this.isApproved = true;
-	}
-
-
-	public User(String username, String password, Double balance, boolean isApproved, String accountType) {
-		this.username = username;
-		this.password = password;
-		this.balance = balance;
-		this.accountType = accountType;
-		this.isApproved = false;
-	}
-
-
-	public User(int id, String name, String username, String password, double balance, String accountType) {
 		super();
-		this.id = id;
-		this.name = name;
 		this.username = username;
 		this.password = password;
-		this.balance = balance;
-		this.accountType = accountType;
-		this.isApproved = false;
-		this.isEmployee = false;
 	}
-
-	public User( String name, String username, String password, double balance, String accountType) {
-		super();
-		
-		this.name = name;
-		this.username = username;
-		this.password = password;
-		this.balance = balance;
-		this.accountType = accountType;
-		this.isApproved = false;
-		this.isEmployee = false;
-	}
-	public User() {
-		// TODO Auto-generated constructor stub
-	}
-
 
 	
-
-
-	public User(String username, double balance, double withdraw, double deposit) {
+	
+	public User(String username, String password, double savingsBalance, boolean isEmployee, String accountType) {
 		super();
 		this.username = username;
-		this.balance = balance;
-		this.withdraw = withdraw;
-		this.deposit = deposit;
+		this.password = password;
+		this.savingsBalance = savingsBalance;
+		this.isEmployee = isEmployee;
+		this.accountType = accountType;
 	}
 
+	public User(String name, String username, String password, double savingsBalance, boolean isApproved,
+			String accountType, double checkingBalance) {
+		super();
+		this.name = name;
+		this.username = username;
+		this.password = password;
+		this.savingsBalance = savingsBalance;
+		this.isApproved = isApproved;
+		this.accountType = accountType;
+		this.checkingBalance = checkingBalance;
+	}
+
+
+
+	public User(String username, double savingsBalance, double savingsWithdraw, double savingsDeposit) {
+		super();
+		this.username = username;
+		this.savingsBalance = savingsBalance;
+		this.savingsWithdraw = savingsWithdraw;
+		this.savingsDeposit = savingsDeposit;
+	}
+
+	public User(String username, String password, double savingsBalance, double checkingBalance, String accountType) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.savingsBalance = savingsBalance;
+		this.accountType = accountType;
+		this.checkingBalance = checkingBalance;
+	}
+
+
+	public User(String username, double savingsBalance, double savingsWithdraw, 
+			double savingsDeposit, double checkingBalance, double checkingWithdraw, double checkingDeposit) {
+		super();
+		this.username = username;
+		this.savingsBalance = savingsBalance;
+		this.savingsWithdraw = savingsWithdraw;
+		this.checkingBalance = checkingBalance;
+		this.savingsDeposit = savingsDeposit;
+		this.checkingWithdraw = checkingWithdraw;
+		this.checkingDeposit = checkingDeposit;
+	}
 
 	public String getPassword() {
 		return password;
@@ -110,13 +99,7 @@ public class User {
 		this.password = password;
 	}
 
-	public double getBalance() {
-		return balance;
-	}
-
-	public void setBalance(double balance) {
-		this.balance = balance;
-	}
+	
 
 	public boolean isApproved() {
 		return isApproved;
@@ -150,24 +133,7 @@ public class User {
 		this.accountType = accountType;
 	}
 	
-	public double getWithdraw() {
-		return withdraw;
-	}
-
-
-	public void setWithdraw(double withdraw) {
-		this.withdraw = withdraw;
-	}
-
-
-	public double getDeposit() {
-		return deposit;
-	}
-
-
-	public void setDeposit(double deposit) {
-		this.deposit = deposit;
-	}
+	
 	
 	public int getId() {
 		return id;
@@ -188,6 +154,56 @@ public class User {
 		this.name = name;
 	}
 
+	public double getSavingsBalance() {
+		return savingsBalance;
+	}
+
+	public void setSavingsBalance(double savingsBalance) {
+		this.savingsBalance = savingsBalance;
+	}
+
+	public double getSavingsWithdraw() {
+		return savingsWithdraw;
+	}
+
+	public void setSavingsWithdraw(double savingsWithdraw) {
+		this.savingsWithdraw = savingsWithdraw;
+	}
+
+	public double getCheckingBalance() {
+		return checkingBalance;
+	}
+
+	public void setCheckingBalance(double checkingBalance) {
+		this.checkingBalance = checkingBalance;
+	}
+
+	public double getSavingsDeposit() {
+		return savingsDeposit;
+	}
+
+	public void setSavingsDeposit(double savingsDeposit) {
+		this.savingsDeposit = savingsDeposit;
+	}
+
+	public double getCheckingWithdraw() {
+		return checkingWithdraw;
+	}
+
+	public void setCheckingWithdraw(double checingWithdraw) {
+		this.checkingWithdraw = checingWithdraw;
+	}
+
+	public double getCheckingDeposit() {
+		return checkingDeposit;
+	}
+
+	public void setCheckingDeposit(double checkingDeposit) {
+		this.checkingDeposit = checkingDeposit;
+	}
 
 
+	
+
+	
 }

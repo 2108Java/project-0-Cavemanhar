@@ -32,4 +32,12 @@ public interface BankDAO {
 
 	public List<User> selectAllTransactions();
 
+	public boolean insertCheckingWithdraw(User banker);
+
+	public boolean insertCheckingDeposit(User banker);
+
+	public String selectAccountType(User banker);
+
+	public void updateUserAccount(User banker, int value);
+
 }

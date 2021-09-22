@@ -47,6 +47,8 @@ public interface BankService {
 
 	public boolean moneyTransferApprove(User banker);
 
+	public void removeTransfer(User banker);
+
 
 
 	

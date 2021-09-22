@@ -12,11 +12,13 @@ import com.revature.repo.BankDAOImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.revature.models.User;
 
 public class MainDriver {
 
-
+	public final static Logger loggy=Logger.getLogger(MainDriver.class);
 	
 	public static void main(String[] args) {
 		
@@ -29,8 +31,9 @@ public class MainDriver {
 		BankService service = new ServiceBankImpl(database);
 		
 		MainMenu mainMenu = new MainMenuImpl(service);
-		
+		loggy.info("Strarting the Application ");
 		mainMenu.Display();
+	
 	}
 	
 	

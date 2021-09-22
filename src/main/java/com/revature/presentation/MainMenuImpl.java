@@ -3,6 +3,9 @@ package com.revature.presentation;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
+import com.revature.MainDriver;
 import com.revature.models.User;
 
 import com.revature.service.BankService;
@@ -10,7 +13,7 @@ import com.revature.service.BankService;
 
 
 public class MainMenuImpl implements MainMenu{
-
+	public final static Logger loggy=Logger.getLogger(MainMenuImpl.class);
 	BankService service;
 	
 	public MainMenuImpl(BankService service) {
@@ -106,6 +109,7 @@ public class MainMenuImpl implements MainMenu{
 				switch (result) {
 				
 				case "1":
+					loggy.info("Logging in user");
 					System.out.println("Please enter your Username:");
 					String username = sc.nextLine();
 					System.out.println("Please enter your Password:");
@@ -119,7 +123,7 @@ public class MainMenuImpl implements MainMenu{
 						banker.setAccountType(service.selectAccountType(banker));
 //						System.out.println("Sorry not yet implemented");
 						boolean userLoggedIn = true;
-						
+						loggy.info("User logged in ");
 						while(userLoggedIn) {
 							
 							banker = service.getSelectedAccount(banker);
@@ -128,7 +132,7 @@ public class MainMenuImpl implements MainMenu{
 						
 						switch (result3) {
 						case "1":
-							
+							loggy.info("Displaying user data");
 							prettyDisplayOfArray(service.getSelectedAccount(banker));
 							break;
 						case "2":
@@ -136,9 +140,11 @@ public class MainMenuImpl implements MainMenu{
 								System.out.println("Please enter your a value you wish to Deposit:");
 								Double deposit = Double.parseDouble(sc.nextLine());
 								if (deposit > 0) {
+									loggy.info("Depositing money");
 									banker.setSavingsDeposit(deposit);
 									service.addDeposit(banker);
 								}else{
+									loggy.warn("Incorrect value insereted");
 									System.out.println("Sorry that value is negative please try again");
 								}
 							}else if (banker.getAccountType().equals("Savings")) {
@@ -148,10 +154,16 @@ public class MainMenuImpl implements MainMenu{
 									banker.setSavingsDeposit(deposit);
 									service.addDeposit(banker);
 								
-							}else {
+								}else{
+									loggy.warn("Incorrect value insereted");
+									System.out.println("Sorry that value is negative please try again");
+							} 
+							}else{
+								loggy.warn("Incorrect account checked");
 								System.out.println("Your account only has a Checking Account.");
-								}
 							}
+							
+							
 							break;
 						case "3":
 							if(banker.getAccountType().equals("Both")) {
@@ -161,6 +173,7 @@ public class MainMenuImpl implements MainMenu{
 								banker.setSavingsWithdraw(withdraw);
 								service.addWithdraw(banker);
 								}else {
+									loggy.warn("Incorrect value insereted");
 									System.out.println("Sorry that value is negative please try again");
 								}
 								
@@ -171,9 +184,11 @@ public class MainMenuImpl implements MainMenu{
 								banker.setSavingsWithdraw(withdraw);
 								service.addWithdraw(banker);
 								}else {
+									loggy.warn("Incorrect value insereted");
 									System.out.println("Sorry that value is negative please try again");
 								}
 							}else {
+								loggy.warn("Incorrect account checked");
 								System.out.println("Your account only has a Checking Account.");
 							}
 							
@@ -186,6 +201,7 @@ public class MainMenuImpl implements MainMenu{
 								banker.setCheckingDeposit(checkingDeposit);
 								service.addCheckingDeposit(banker);
 								}else{
+									loggy.warn("Incorrect value insereted");
 									System.out.println("Sorry that value is negative please try again");
 								}
 							}else if (banker.getAccountType().equals("Checking")) {
@@ -194,10 +210,14 @@ public class MainMenuImpl implements MainMenu{
 								if (checkingDeposit > 0) {
 								banker.setCheckingDeposit(checkingDeposit);
 								service.addCheckingDeposit(banker);
+								}else{
+									loggy.warn("Incorrect value insereted");
+									System.out.println("Sorry that value is negative please try again");
 								}
 								
 							}else {
-								System.out.println("Sorry that value is negative please try again");
+								loggy.warn("Incorrect account checked");
+								System.out.println("Your account only has a Savings Account");
 							}
 							
 							break;
@@ -210,6 +230,7 @@ public class MainMenuImpl implements MainMenu{
 								banker.setCheckingWithdraw(checkingWithdraw);
 								service.addCheckingWithdraw(banker);
 								}else {
+									loggy.warn("Incorrect value insereted");
 									System.out.println("Sorry that value is negative please try again");
 								}
 								
@@ -221,11 +242,13 @@ public class MainMenuImpl implements MainMenu{
 								banker.setCheckingWithdraw(checkingWithdraw);
 								service.addCheckingWithdraw(banker);
 								}else {
+									loggy.warn("Incorrect value insereted");
 									System.out.println("Sorry that value is negative please try again");
 								}
 								
 							}else {
-								System.out.println("Sorry that value is negative please try again");
+								loggy.warn("Incorrect account checked");
+								System.out.println("Your account only has a Savings Account");
 							}
 							
 							
@@ -253,31 +276,45 @@ public class MainMenuImpl implements MainMenu{
 									service.addUserAccount(banker, value);
 								
 							}else {
+								loggy.warn("User already has both a checking and a savings account");
 								System.out.println("You already have both a Savings and a Checking account");
 							}
 							break;
 						case "7":
+							
 							System.out.println("Which account do you wish to transfer money from:");
 							String account = sc.nextLine();
+							
 							
 							if(account.equals("Savings") && (banker.getAccountType().equals("Savings")|| (banker.getAccountType().equals("Both")))) {
 								
 								System.out.println("How much do you wish to transfer");
 								Double savingsTransfer = Double.parseDouble(sc.nextLine());
 							
-								
-								banker.setSavingsMoneyTransfer(savingsTransfer);
+								if (savingsTransfer > 0) {
+									banker.setSavingsMoneyTransfer(savingsTransfer);
 								
 								service.addMoneyTransfer( banker);
+								}else {
+									loggy.warn("Incorrect value entered");
+									System.out.println("Amount entered is not valid");
+								}
+								
 								
 								
 							}else if (account.equals("Checking") &&( (banker.getAccountType().equals("Checking")) || (banker.getAccountType().equals("Both")))) {
 								System.out.println("How much do you wish to transfer");
 								Double checkingTransfer = Double.parseDouble(sc.nextLine());
-								
+								if (checkingTransfer > 0) {
 								banker.setCheckingMoneyTransfer(checkingTransfer);
 								service.addMoneyTransfer( banker);
+								}else {
+									loggy.warn("Incorrect value entered");
+									System.out.println("Amount entered is not valid");
+								}
+								
 							}else {
+								loggy.warn("Incorrect value entered");
 								System.out.println("You entered neither Savings nor Checking or do not have such an account");
 							}
 							
@@ -294,15 +331,19 @@ public class MainMenuImpl implements MainMenu{
 										service.transferMoney(banker);
 //									System.out.println(banker.getCheckingBalance());
 								}else {
+									loggy.info("Transfer denied by user");
+									service.removeTransfer(banker);
 									System.out.println("Transfer removed");
 								}
 							}
 								else {
+									loggy.info("Transfer approve selected without a transfer to approve");
 								System.out.println("No money transfers to approve currently");
 							}
 							
 							break;
 						case "0":
+							loggy.info("User logged logged out");
 							System.out.println(banker.getUsername() + " Logging out.");
 							userLoggedIn = false;
 							break;
@@ -313,7 +354,8 @@ public class MainMenuImpl implements MainMenu{
 										
 					}
 				else {
-					System.out.println("Log in failed");
+					loggy.warn("User failed to logged in ");
+					System.out.println("Log in failed may not yet be approved");
 				}
 					
 					break;
@@ -330,6 +372,7 @@ public class MainMenuImpl implements MainMenu{
 					
 					
 					if(newAccountType.equals("Both")) {
+						loggy.info("User created with both account types ");
 						System.out.println("Please enter your a value you wish to initially in Savings Deposit:");
 						Double firstSavingsDeposit = Double.parseDouble(sc.nextLine());
 						System.out.println("Please enter your a value you wish to initially in Checking Deposit:");
@@ -345,7 +388,7 @@ public class MainMenuImpl implements MainMenu{
 						
 						
 					}else if(newAccountType.equals("Savings")){
-						
+						loggy.info("User created with savings account");
 						System.out.println("Please enter your a value you wish to initially deposit:");
 						Double firstDeposit = Double.parseDouble(sc.nextLine());
 
@@ -356,7 +399,7 @@ public class MainMenuImpl implements MainMenu{
 							service.addUser(newBanker);
 						
 					}else if(newAccountType.equals("Checking")) {
-						
+						loggy.info("User created with checking account ");
 						System.out.println("Please enter your a value you wish to initially deposit:");
 						Double firstDeposit = Double.parseDouble(sc.nextLine());
 
@@ -367,19 +410,11 @@ public class MainMenuImpl implements MainMenu{
 							service.addUser(newBanker);
 						
 					}else {
+						loggy.warn("user entered an incorrect account type");
 						System.out.println("you entered an invalid Account Type");
 					}
 					
-					System.out.println("Please enter your a value you wish to initially deposit:");
-					Double firstDeposit = Double.parseDouble(sc.nextLine());
-//					System.out.println("Please enter if you are a employee:");
-//					Boolean employee = Boolean.parseBoolean(sc.nextLine());
-					newBanker.setUsername(newUsername);
-					newBanker.setPassword(newPassword);
-					newBanker.setAccountType(newAccountType);
-					newBanker.setSavingsBalance(firstDeposit);
-//						newBanker =new User(newName, newUsername, newPassword, firstDeposit, newAccountType);
-						service.addUser(newBanker);
+					
 					
 //					prettyDisplayOfArray(service.getAllAccounts());
 					break;
@@ -392,7 +427,7 @@ public class MainMenuImpl implements MainMenu{
 //					System.out.println(employeeBank.getUsername());
 					if (service.validateUserEmployee(employeeBank)== true) {
 						boolean employeeLoggedIn = true;
-						
+						loggy.info("employee login ");
 						while(employeeLoggedIn) {
 						optionsMenuEmployee();
 						String result2 = sc.nextLine();
@@ -405,8 +440,10 @@ public class MainMenuImpl implements MainMenu{
 								System.out.println("Which user do you wish to approve?(use username)");
 								String user = sc.nextLine();
 								if (service.setUserToApproved(user)) {
+									loggy.info("Customer approved ");
 									System.out.println("User has been approved!");
 								}else {
+									loggy.warn("Customer account not found");
 									System.out.println("User not found!");
 								}
 								break;
@@ -416,36 +453,44 @@ public class MainMenuImpl implements MainMenu{
 								System.out.println("Which user do you wish to reject?(use username)");
 								String users = sc.nextLine();
 								if (service.deleteUser(users)) {
+									loggy.info("Customer rejected");
 									System.out.println("User has been Rejected!");
 								}else {
+									loggy.warn("Customer account not found");
 									System.out.println("User not found!");
 								}
 								break;
 								
 							case "3":
+								loggy.info("view the balance of a user");
 								System.out.println("Which user do you wish to view the balance of?(use username)");
 								String userBalance = sc.nextLine();
 								
 								prettyDisplayOfArray(service.getSelectedAccountForEmployee(userBalance));
 								break;
 							case "4":
+								loggy.info("View all transactions");
 								prettyDisplayOfTransactions(service.getAllTransactions());
 								break;
 							case "0":
+								loggy.info("Employee logging out");
 								System.out.println(employeeBank.getUsername() + " Logging out.");
 								employeeLoggedIn = false;
 								break;
 							}
 						}
 					}else {
+						loggy.warn("Employee log in failed");
 						System.out.println("Log in failed are you sure you are an employee");
 					}
 					break;
 				case "0":
+					loggy.info("Closing App");
 					System.out.println("Thank you for banking with us.");
 					running = false;
 					break;
 				default:
+					loggy.warn("Invalid app input");
 					System.out.println("That's not a valid input!");
 					System.out.println("Please Try again!");
 					

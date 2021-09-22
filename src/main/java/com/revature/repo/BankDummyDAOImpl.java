@@ -10,13 +10,13 @@ public class BankDummyDAOImpl {
 	public void dummyUsers() {
 //		List<Bank> dummyUsersList = new ArrayList();
 		
-		
-		 dummyUsersList.add(new User("Tyler", "starfish", 100, false, "Savings" ));
-		 dummyUsersList.add(new User("Ashley", "starfish", 100, false, "Checking" ));
-		 dummyUsersList.add(new User("Jeff", "starfish", true ));
-		 dummyUsersList.add(new User("John", "starfish", 1000, true,  "Checking" ));
-		 dummyUsersList.add(new User("Kelce", "starfish", 100.50, false,  "Checking" ));
-		
+//		
+//		 dummyUsersList.add(new User("Tyler", "starfish", 100, false, "Savings" ));
+//		 dummyUsersList.add(new User("Ashley", "starfish", 100, false, "Checking" ));
+//		 dummyUsersList.add(new User("Jeff", "starfish", true ));
+//		 dummyUsersList.add(new User("John", "starfish", 1000, true,  "Checking" ));
+//		 dummyUsersList.add(new User("Kelce", "starfish", 100.50, false,  "Checking" ));
+//		
 		
 	}
 	

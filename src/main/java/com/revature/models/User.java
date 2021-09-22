@@ -105,6 +105,24 @@ public class User {
 		this.moneyTransferApprove = moneyTransferApprove;
 	}
 
+	
+	
+	public User(String username,  double savingsBalance, double savingsWithdraw,
+			double savingsDeposit, double checkingBalance ,double checkingWithdraw, double checkingDeposit, double checkingMoneyTransfer,
+			double savingsMoneyTransfer) {
+		super();
+		this.username = username;
+		
+		this.savingsBalance = savingsBalance;
+		this.savingsWithdraw = savingsWithdraw;
+		this.checkingBalance = checkingBalance;
+		this.savingsDeposit = savingsDeposit;
+		this.checkingWithdraw = checkingWithdraw;
+		this.checkingDeposit = checkingDeposit;
+		this.checkingMoneyTransfer = checkingMoneyTransfer;
+		this.savingsMoneyTransfer = savingsMoneyTransfer;
+	}
+
 	public String getPassword() {
 		return password;
 	}

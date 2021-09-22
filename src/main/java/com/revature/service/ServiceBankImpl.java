@@ -3,12 +3,15 @@ package com.revature.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.revature.models.User;
+import com.revature.presentation.MainMenuImpl;
 import com.revature.repo.BankDAO;
 
 
 public class ServiceBankImpl implements BankService {
-
+	public final static Logger loggy=Logger.getLogger(ServiceBankImpl.class);
 	BankDAO database;
 	
 	public ServiceBankImpl(BankDAO database) {
@@ -114,6 +117,7 @@ public class ServiceBankImpl implements BankService {
 	public void addDeposit(User banker) {
 		// TODO Auto-generated method stub
 		if (database.insertDeposit(banker)) {
+			loggy.info("transacion successful");
 			System.out.println("Successful deposit");
 		}
 	}
@@ -123,6 +127,7 @@ public class ServiceBankImpl implements BankService {
 	public void addWithdraw(User banker) {
 		// TODO Auto-generated method stub
 			if (database.insertWithdraw(banker) == false) {
+				loggy.warn("transaction overdraft fault");
 				System.out.println("transaction failed overdraft with current amount");
 			}
 	}
@@ -138,6 +143,7 @@ public class ServiceBankImpl implements BankService {
 	@Override
 	public void addCheckingDeposit(User banker) {
 		if (database.insertCheckingDeposit(banker)) {
+			loggy.info("transacion successful");
 			System.out.println("Successful deposit");
 		}
 	}
@@ -146,6 +152,7 @@ public class ServiceBankImpl implements BankService {
 	@Override
 	public void addCheckingWithdraw(User banker) {
 		if (database.insertCheckingWithdraw(banker) == false) {
+			loggy.warn("transaction overdraft fault");
 			System.out.println("transaction failed overdraft with current amount");
 		}
 	}
@@ -186,5 +193,16 @@ public class ServiceBankImpl implements BankService {
 	public boolean moneyTransferApprove(User banker) {
 		// TODO Auto-generated method stub
 		return database.selectMoneyTransfer(banker);
+	}
+
+
+	@Override
+	public void removeTransfer(User banker) {
+
+			if(database.deleteTransfer(banker)) {
+				
+			}else {
+				
+			}
 	}
 }

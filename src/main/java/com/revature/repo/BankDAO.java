@@ -46,6 +46,8 @@ public interface BankDAO {
 
 	public boolean selectMoneyTransfer(User banker);
 
+	public boolean deleteTransfer(User banker);
+
 
 
 }

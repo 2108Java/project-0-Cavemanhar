@@ -429,7 +429,9 @@ public class BankDAOImpl implements BankDAO {
 									rs.getDouble("savings_deposit"),
 									rs.getDouble("checking_balance"),
 									rs.getDouble("checking_withdrawl"),
-									rs.getDouble("checking_deposit")
+									rs.getDouble("checking_deposit"),
+									rs.getDouble("checking_transfer"),
+									rs.getDouble("savings_transfer")
 			);
 									
 									
@@ -581,6 +583,9 @@ public class BankDAOImpl implements BankDAO {
 		
 		boolean success = false;
 	
+		
+		
+		
 		String sql1 = "UPDATE Users SET money_transfer = ? WHERE username = ?";
 		
 		try (Connection connection = DriverManager.getConnection(url,username,password)){
@@ -693,6 +698,39 @@ public class BankDAOImpl implements BankDAO {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return success;
+	}
+
+	@Override
+	public boolean deleteTransfer(User banker) {
+		String sql = "DELETE from transactions WHERE username_foreign_id = ? and money_transfer_approval = ?";
+		boolean success = false;
+		try (Connection connection = DriverManager.getConnection(url,username,password)){
+		PreparedStatement ps = connection.prepareStatement(sql);		
+		ps.setString(1, banker.getUsername());
+		ps.setBoolean(2, false);
+		ps.execute();
+		success = true;
+		connection.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String sql1 = "UPDATE Users SET money_transfer = ? WHERE username = ?";
+		
+		try (Connection connection = DriverManager.getConnection(url,username,password)){
+		PreparedStatement ps = connection.prepareStatement(sql1);		
+		ps.setBoolean(1, false);
+		ps.setString(2, banker.getUsername());
+		ps.execute();
+		connection.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 		return success;
 	}
 

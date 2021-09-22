@@ -40,7 +40,9 @@ public class BankDAOImplTest {
 		u.setUsername("Kelce");
 		u.setPassword("starfish");
 		assertFalse(DAO.selectEmployee(u));
-		
+		u.setUsername("Jeff");
+		u.setPassword("starfish");
+		assertTrue(DAO.selectEmployee(u));
 	}
 
 	

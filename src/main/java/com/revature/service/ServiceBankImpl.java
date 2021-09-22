@@ -37,7 +37,7 @@ public class ServiceBankImpl implements BankService {
 
 	@Override
 	public void addUser(User newBanker) {
-		
+		loggy.info("User added to database");
 		database.createUser(newBanker);
 		
 		
@@ -174,8 +174,9 @@ public class ServiceBankImpl implements BankService {
 
 	@Override
 	public void addMoneyTransfer(User banker) {
-		if(database.insertMoneyTransfer( banker)) {
-			
+		if(database.insertMoneyTransfer( banker) == false) {
+			loggy.warn("User tried to overdraft on of the accounts");
+			System.out.println("You entered a value that would pull to much out of your account");
 		}
 		
 	}

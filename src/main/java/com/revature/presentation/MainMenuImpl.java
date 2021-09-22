@@ -61,6 +61,8 @@ public class MainMenuImpl implements MainMenu{
 				System.out.println("Checking Balance: $" +array.get(i).getCheckingBalance());
 				System.out.println("Checking Deposit: $" +array.get(i).getCheckingDeposit());
 				System.out.println("Checking Withdrawl: $" +array.get(i).getCheckingWithdraw());
+				System.out.println("Savings Transfer: $" +array.get(i).getSavingsMoneyTransfer());
+				System.out.println("Checking Transfer: $" +array.get(i).getCheckingMoneyTransfer());
 				System.out.println("");
 				
 			}

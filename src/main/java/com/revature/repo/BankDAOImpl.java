@@ -115,15 +115,15 @@ public class BankDAOImpl implements BankDAO {
 		}
 		try (Connection connection = DriverManager.getConnection(url,username,password))
 		{
-			String sql= "Insert INTO transactions(username_foreign_id ,savings_deposit ,savings_withdrawl ,savings_balance, checking_deposit ,checking_withdrawl ,checking_balance) Values (?,?,?,?)";// send sql to the database	
+			String sql= "Insert INTO transactions(username_foreign_id ,savings_deposit ,savings_withdrawl ,savings_balance, checking_deposit ,checking_withdrawl ,checking_balance) Values (?,?,?,?,?,?,?)";// send sql to the database	
 			PreparedStatement ps = connection.prepareStatement(sql);//get ready to send 
 			ps.setString(1, newBanker.getUsername());
 			ps.setDouble(2, newBanker.getSavingsDeposit());
 			ps.setDouble(3, newBanker.getSavingsWithdraw());	
 			ps.setDouble(4, newBanker.getSavingsBalance());
-			ps.setDouble(2, newBanker.getCheckingDeposit());
-			ps.setDouble(3, newBanker.getCheckingWithdraw());	
-			ps.setDouble(4, newBanker.getCheckingBalance());
+			ps.setDouble(5, newBanker.getCheckingDeposit());
+			ps.setDouble(6, newBanker.getCheckingWithdraw());	
+			ps.setDouble(7, newBanker.getCheckingBalance());
 			ps.execute();// execute the prepared statement from user to add to database
 			
 	
@@ -325,12 +325,11 @@ public class BankDAOImpl implements BankDAO {
 		int i = 0;
 		while(rs.next()) {
 			User	todo = new User(rs.getString("username"),
-									rs.getString("user_password"));
-//									rs.getDouble("balance"),
-//									rs.getBoolean("isApproved"),
-//									rs.getBoolean("isEmployee"),
-									
-//									rs.getString("accountType"));
+									rs.getString("user_password"),
+									rs.getDouble("savings_balance"),
+									rs.getDouble("checking_balance"),
+									rs.getString("accountType"));
+
 			itemArray.add(i,todo);
 											
 					i++;				
@@ -583,37 +582,39 @@ public class BankDAOImpl implements BankDAO {
 		
 		boolean success = false;
 	
-		
-		
-		
-		String sql1 = "UPDATE Users SET money_transfer = ? WHERE username = ?";
-		
-		try (Connection connection = DriverManager.getConnection(url,username,password)){
-		PreparedStatement ps = connection.prepareStatement(sql1);		
-		ps.setBoolean(1, true);
-		ps.setString(2, banker.getUsername());
-		ps.execute();
-		success = true;
-		connection.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		
-		String sql2 = "Insert INTO transactions(username_foreign_id , checking_transfer, savings_transfer, money_transfer_approval) Values (?,?,?,?)";
+		if((banker.getCheckingBalance() > banker.getCheckingMoneyTransfer()) || (banker.getSavingsBalance() > banker.getSavingsMoneyTransfer())) {
+			String sql1 = "UPDATE Users SET money_transfer = ? WHERE username = ?";
+			
+			try (Connection connection = DriverManager.getConnection(url,username,password)){
+			PreparedStatement ps = connection.prepareStatement(sql1);		
+			ps.setBoolean(1, true);
+			ps.setString(2, banker.getUsername());
+			ps.execute();
+			success = true;
+			connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			
+			String sql2 = "Insert INTO transactions(username_foreign_id , checking_transfer, savings_transfer, money_transfer_approval) Values (?,?,?,?)";
 
-		try (Connection connection = DriverManager.getConnection(url,username,password)){
-		PreparedStatement ps = connection.prepareStatement(sql2);		
-		
-		ps.setString(1, banker.getUsername());
-		ps.setDouble(2, banker.getCheckingMoneyTransfer());
-		ps.setDouble(3, banker.getSavingsMoneyTransfer());
-		ps.setBoolean(4, false);
-		ps.execute();
-		success = true;
-		connection.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
+			try (Connection connection = DriverManager.getConnection(url,username,password)){
+			PreparedStatement ps = connection.prepareStatement(sql2);		
+			
+			ps.setString(1, banker.getUsername());
+			ps.setDouble(2, banker.getCheckingMoneyTransfer());
+			ps.setDouble(3, banker.getSavingsMoneyTransfer());
+			ps.setBoolean(4, false);
+			ps.execute();
+			success = true;
+			connection.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		
+		
+		
 		
 		return success;
 	}

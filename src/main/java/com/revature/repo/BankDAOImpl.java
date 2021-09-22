@@ -348,10 +348,10 @@ public class BankDAOImpl implements BankDAO {
 	
 		Boolean success = false;
 		User currentCustomer = Deposit.selectCustomer(banker);
-		System.out.println(banker.getSavingsDeposit());
+//		System.out.println(banker.getSavingsDeposit());
 		currentCustomer.setSavingsBalance( banker.getSavingsDeposit() + currentCustomer.getSavingsBalance()); 
 		
-		System.out.println(currentCustomer.getSavingsBalance());
+//		System.out.println(currentCustomer.getSavingsBalance());
 		
 		Deposit.updateUser(currentCustomer);
 		
@@ -380,11 +380,11 @@ public class BankDAOImpl implements BankDAO {
 		Boolean success = false;
 		
 		User currentCustomer = withdraw.selectCustomer(banker);
-		System.out.println(banker.getSavingsDeposit());
+//		System.out.println(banker.getSavingsDeposit());
 		if (currentCustomer.getSavingsBalance() > banker.getSavingsWithdraw()) {
 		currentCustomer.setSavingsBalance(  currentCustomer.getSavingsBalance() - banker.getSavingsWithdraw()); 
 		
-		System.out.println(currentCustomer.getSavingsBalance());
+//		System.out.println(currentCustomer.getSavingsBalance());
 		
 		withdraw.updateUser(currentCustomer);
 		success = true;

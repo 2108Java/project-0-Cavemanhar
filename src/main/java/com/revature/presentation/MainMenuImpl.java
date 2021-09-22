@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
-import com.revature.MainDriver;
 import com.revature.models.User;
 
 import com.revature.service.BankService;

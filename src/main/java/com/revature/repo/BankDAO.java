@@ -22,7 +22,7 @@ public interface BankDAO {
 
 	public boolean deleteUser(String users);
 
-	public List<User> SelectAccount(User banker);
+	public User SelectAccount(User banker);
 
 	public List<User> SelectAccountEmployee(String userBalance);
 
@@ -39,5 +39,13 @@ public interface BankDAO {
 	public String selectAccountType(User banker);
 
 	public void updateUserAccount(User banker, int value);
+
+	public boolean insertMoneyTransfer(User transfer);
+
+	public void updateTransfer(User banker);
+
+	public boolean selectMoneyTransfer(User banker);
+
+
 
 }

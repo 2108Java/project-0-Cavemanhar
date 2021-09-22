@@ -20,9 +20,10 @@ public class User {
 	private double checkingWithdraw;
 	
 	private double checkingDeposit;
+	private double checkingMoneyTransfer;
 	
-	
-
+	private double savingsMoneyTransfer;
+	private boolean moneyTransferApprove;
 
 
 
@@ -89,6 +90,19 @@ public class User {
 		this.savingsDeposit = savingsDeposit;
 		this.checkingWithdraw = checkingWithdraw;
 		this.checkingDeposit = checkingDeposit;
+	}
+
+	
+	
+	public User(String username, String password, double savingsBalance, double checkingBalance, String accountType,
+			boolean moneyTransferApprove) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.savingsBalance = savingsBalance;
+		this.checkingBalance = checkingBalance;
+		this.accountType = accountType;
+		this.moneyTransferApprove = moneyTransferApprove;
 	}
 
 	public String getPassword() {
@@ -200,6 +214,30 @@ public class User {
 
 	public void setCheckingDeposit(double checkingDeposit) {
 		this.checkingDeposit = checkingDeposit;
+	}
+
+	public double getCheckingMoneyTransfer() {
+		return checkingMoneyTransfer;
+	}
+
+	public void setCheckingMoneyTransfer(double checkingMoneyTransfer) {
+		this.checkingMoneyTransfer = checkingMoneyTransfer;
+	}
+
+	public double getSavingsMoneyTransfer() {
+		return savingsMoneyTransfer;
+	}
+
+	public void setSavingsMoneyTransfer(double savingsMoneyTransfer) {
+		this.savingsMoneyTransfer = savingsMoneyTransfer;
+	}
+
+	public boolean isMoneyTransferApprove() {
+		return moneyTransferApprove;
+	}
+
+	public void setMoneyTransferApprove(boolean moneyTransferApprove) {
+		this.moneyTransferApprove = moneyTransferApprove;
 	}
 
 

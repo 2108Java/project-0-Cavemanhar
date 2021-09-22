@@ -31,18 +31,34 @@ public class MainMenuImpl implements MainMenu{
 			
 		}
 	}
+	
+	private void prettyDisplayOfArray(User selectedAccount) {
+
+			
+			if(selectedAccount != null) {
+				System.out.println("Username: " + selectedAccount.getUsername());
+				System.out.println("Savings Balance: $" + selectedAccount.getSavingsBalance());
+				System.out.println("Checking Balance: $" + selectedAccount.getCheckingBalance());
+				System.out.println("AccountType: " + selectedAccount.getAccountType());
+				System.out.println("");
+				
+			}
+			
+		
+		
+	}
 
 	private void prettyDisplayOfTransactions(List<User> array) {
 		for(int i = 0; i< array.size(); i++) {
 			
 			if(array.get(i) != null) {
 				System.out.println("Username: " +array.get(i).getUsername());
-				System.out.println("Balance: $" +array.get(i).getSavingsBalance());
-				System.out.println("Deposit: $" +array.get(i).getSavingsDeposit());
-				System.out.println("Withdrawl: $" +array.get(i).getSavingsWithdraw());
-				System.out.println("Balance: $" +array.get(i).getCheckingBalance());
-				System.out.println("Deposit: $" +array.get(i).getCheckingDeposit());
-				System.out.println("Withdrawl: $" +array.get(i).getCheckingWithdraw());
+				System.out.println("Savings Balance: $" +array.get(i).getSavingsBalance());
+				System.out.println("Savings Deposit: $" +array.get(i).getSavingsDeposit());
+				System.out.println("SavingsWithdrawl: $" +array.get(i).getSavingsWithdraw());
+				System.out.println("Checking Balance: $" +array.get(i).getCheckingBalance());
+				System.out.println("Checking Deposit: $" +array.get(i).getCheckingDeposit());
+				System.out.println("Checking Withdrawl: $" +array.get(i).getCheckingWithdraw());
 				System.out.println("");
 				
 			}
@@ -70,8 +86,8 @@ public class MainMenuImpl implements MainMenu{
 		System.out.println("4) Make Checking Deposit");
 		System.out.println("5) Make Checking Withdraw");
 		System.out.println("6) Make A new Account");
-//		System.out.println("5) Make A Money Transfer");
-//		System.out.println("6) Approve Money Transfer");
+		System.out.println("7) Make A Money Transfer");
+		System.out.println("8) Approve Money Transfer");
 
 		System.out.println("0) Log Out");
 	}
@@ -105,6 +121,8 @@ public class MainMenuImpl implements MainMenu{
 						boolean userLoggedIn = true;
 						
 						while(userLoggedIn) {
+							
+							banker = service.getSelectedAccount(banker);
 							optionsMenuCustomer();
 						String result3 = sc.nextLine();
 						
@@ -235,8 +253,54 @@ public class MainMenuImpl implements MainMenu{
 									service.addUserAccount(banker, value);
 								
 							}else {
-								System.out.println("You already have both a savings and a checking account");
+								System.out.println("You already have both a Savings and a Checking account");
 							}
+							break;
+						case "7":
+							System.out.println("Which account do you wish to transfer money from:");
+							String account = sc.nextLine();
+							
+							if(account.equals("Savings") && (banker.getAccountType().equals("Savings")|| (banker.getAccountType().equals("Both")))) {
+								
+								System.out.println("How much do you wish to transfer");
+								Double savingsTransfer = Double.parseDouble(sc.nextLine());
+							
+								
+								banker.setSavingsMoneyTransfer(savingsTransfer);
+								
+								service.addMoneyTransfer( banker);
+								
+								
+							}else if (account.equals("Checking") &&( (banker.getAccountType().equals("Checking")) || (banker.getAccountType().equals("Both")))) {
+								System.out.println("How much do you wish to transfer");
+								Double checkingTransfer = Double.parseDouble(sc.nextLine());
+								
+								banker.setCheckingMoneyTransfer(checkingTransfer);
+								service.addMoneyTransfer( banker);
+							}else {
+								System.out.println("You entered neither Savings nor Checking or do not have such an account");
+							}
+							
+							break;
+							
+						case "8":
+//							service.validateUser(banker);
+							
+							
+							if(service.moneyTransferApprove(banker)) {
+								System.out.println("do you wish to appove of the transfer Y/N");
+								String approve = sc.nextLine();
+								if(approve.equals("Y")) {
+										service.transferMoney(banker);
+//									System.out.println(banker.getCheckingBalance());
+								}else {
+									System.out.println("Transfer removed");
+								}
+							}
+								else {
+								System.out.println("No money transfers to approve currently");
+							}
+							
 							break;
 						case "0":
 							System.out.println(banker.getUsername() + " Logging out.");
@@ -396,6 +460,8 @@ public class MainMenuImpl implements MainMenu{
 			
 			
 	}
+
+
 
 
 }

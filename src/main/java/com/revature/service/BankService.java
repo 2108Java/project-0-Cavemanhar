@@ -23,7 +23,7 @@ public interface BankService {
 
 	public boolean deleteUser(String users);
 
-	public List<User> getSelectedAccount(User banker);
+	public User getSelectedAccount(User banker);
 
 	public List<User> getSelectedAccountForEmployee(String userBalance);
 
@@ -40,6 +40,12 @@ public interface BankService {
 	public String selectAccountType(User banker);
 
 	public void addUserAccount(User banker, int value);
+
+	public void addMoneyTransfer(User transfer);
+
+	public void transferMoney(User banker);
+
+	public boolean moneyTransferApprove(User banker);
 
 
 

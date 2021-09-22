@@ -97,7 +97,7 @@ public class ServiceBankImpl implements BankService {
 
 
 	@Override
-	public List<User> getSelectedAccount(User banker) {
+	public User getSelectedAccount(User banker) {
 		// TODO Auto-generated method stub
 		return database.SelectAccount(banker);
 	}
@@ -162,5 +162,29 @@ public class ServiceBankImpl implements BankService {
 	public void addUserAccount(User banker, int value) {
 		database.updateUserAccount(banker, value);
 		
+	}
+
+
+	@Override
+	public void addMoneyTransfer(User banker) {
+		if(database.insertMoneyTransfer( banker)) {
+			
+		}
+		
+	}
+
+
+	@Override
+	public void transferMoney(User banker) {
+		
+		database.updateTransfer(banker);
+		
+	}
+
+
+	@Override
+	public boolean moneyTransferApprove(User banker) {
+		// TODO Auto-generated method stub
+		return database.selectMoneyTransfer(banker);
 	}
 }

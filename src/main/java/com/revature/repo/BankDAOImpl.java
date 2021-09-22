@@ -153,7 +153,7 @@ public class BankDAOImpl implements BankDAO {
 			}else {
 				success = false;
 			}
-			}
+			}connection.close();
 	
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -182,7 +182,7 @@ public class BankDAOImpl implements BankDAO {
 				itemArray.add(i,todo);
 												
 						i++;				
-			}
+			}connection.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -209,7 +209,7 @@ public class BankDAOImpl implements BankDAO {
 		}else {
 			success = false;
 		}
-		}
+		}connection.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -239,7 +239,7 @@ public class BankDAOImpl implements BankDAO {
 				itemArray.add(i,todo);
 												
 						i++;				
-			}
+			}connection.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -256,6 +256,7 @@ public class BankDAOImpl implements BankDAO {
 		ps.setString(2, user);
 		ps.execute();
 		success = true;
+		connection.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -272,6 +273,7 @@ public class BankDAOImpl implements BankDAO {
 		ps.setString(1, users);
 		ps.execute();
 		success = true;
+		connection.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -279,8 +281,8 @@ public class BankDAOImpl implements BankDAO {
 	}
 
 	@Override
-	public List<User> SelectAccount(User banker) {
-		List<User> itemArray = new ArrayList<>();
+	public User SelectAccount(User banker) {
+		User todo = new User();
 		String sql = "SELECT * from Users WHERE username = ?";
 	
 		try (Connection connection = DriverManager.getConnection(url,username,password)){
@@ -290,21 +292,22 @@ public class BankDAOImpl implements BankDAO {
 		
 		ResultSet rs = ps.executeQuery();
 		
-		int i = 0;
+	
 		while(rs.next()) {
-			User	todo = new User(rs.getString("username"),
+				todo = new User(rs.getString("username"),
 									rs.getString("user_password"),
 									rs.getDouble("savings_balance"),
 									rs.getDouble("checking_balance"),
-									rs.getString("accountType"));
-			itemArray.add(i,todo);
+									rs.getString("accountType"),
+									rs.getBoolean("money_transfer"));
+			
 											
-					i++;				
-		}
+									
+		}connection.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return itemArray;
+		return todo;
 	}
 
 	@Override
@@ -331,7 +334,7 @@ public class BankDAOImpl implements BankDAO {
 			itemArray.add(i,todo);
 											
 					i++;				
-		}
+		}connection.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -362,7 +365,7 @@ public class BankDAOImpl implements BankDAO {
 			ps.setDouble(4, currentCustomer.getSavingsBalance());
 			ps.execute();// execute the prepared statement from user to add to database
 			success = true;
-	
+			connection.close();
 			}		
 		catch(SQLException e) {
 			
@@ -395,7 +398,7 @@ public class BankDAOImpl implements BankDAO {
 			ps.setDouble(4, currentCustomer.getSavingsBalance());
 			ps.execute();// execute the prepared statement from user to add to database
 			
-	
+			connection.close();
 			}		
 		catch(SQLException e) {
 			
@@ -433,7 +436,7 @@ public class BankDAOImpl implements BankDAO {
 			itemArray.add(i,todo);
 											
 					i++;				
-		}
+		}connection.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -463,7 +466,7 @@ public class BankDAOImpl implements BankDAO {
 			ps.setDouble(3, banker.getSavingsWithdraw());	
 			ps.setDouble(4, currentCustomer.getSavingsBalance());
 			ps.execute();// execute the prepared statement from user to add to database
-			
+			connection.close();
 	
 			}		
 		catch(SQLException e) {
@@ -499,7 +502,7 @@ public class BankDAOImpl implements BankDAO {
 			ps.setDouble(4, currentCustomer.getCheckingBalance());
 			ps.execute();// execute the prepared statement from user to add to database
 			success = true;
-	
+			connection.close();
 			}		
 		catch(SQLException e) {
 			
@@ -519,7 +522,7 @@ public class BankDAOImpl implements BankDAO {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setString(1, banker.getUsername());
 			ResultSet rs = ps.executeQuery();
-			
+			connection.close();
 			
 			while(rs.next()) {
 				
@@ -572,5 +575,127 @@ public class BankDAOImpl implements BankDAO {
 		}
 		
 	}
+
+	@Override
+	public boolean insertMoneyTransfer( User banker) {
+		
+		boolean success = false;
+	
+		String sql1 = "UPDATE Users SET money_transfer = ? WHERE username = ?";
+		
+		try (Connection connection = DriverManager.getConnection(url,username,password)){
+		PreparedStatement ps = connection.prepareStatement(sql1);		
+		ps.setBoolean(1, true);
+		ps.setString(2, banker.getUsername());
+		ps.execute();
+		success = true;
+		connection.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String sql2 = "Insert INTO transactions(username_foreign_id , checking_transfer, savings_transfer, money_transfer_approval) Values (?,?,?,?)";
+
+		try (Connection connection = DriverManager.getConnection(url,username,password)){
+		PreparedStatement ps = connection.prepareStatement(sql2);		
+		
+		ps.setString(1, banker.getUsername());
+		ps.setDouble(2, banker.getCheckingMoneyTransfer());
+		ps.setDouble(3, banker.getSavingsMoneyTransfer());
+		ps.setBoolean(4, false);
+		ps.execute();
+		success = true;
+		connection.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return success;
+	}
+
+	@Override
+	public void updateTransfer(User banker) {
+		
+		String sql = "SELECT * FROM transactions WHERE username_foreign_id = ? AND money_transfer_approval = ?";
+		
+		try (Connection connection = DriverManager.getConnection(url,username,password)){
+		PreparedStatement ps = connection.prepareStatement(sql);		
+		ps.setString(1, banker.getUsername());
+		ps.setBoolean(2, false);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			banker.setCheckingMoneyTransfer(rs.getDouble("checking_transfer"));
+			banker.setSavingsMoneyTransfer(rs.getDouble("savings_transfer"));
+			
+			
+		}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		banker.setSavingsBalance(banker.getSavingsBalance() - banker.getSavingsMoneyTransfer() + banker.getCheckingMoneyTransfer());
+		banker.setCheckingBalance(banker.getCheckingBalance() - banker.getCheckingMoneyTransfer() + banker.getSavingsMoneyTransfer());
+
+		String sql1 = "UPDATE Users SET money_transfer = ?, checking_balance = ?, savings_balance = ?  WHERE username = ?";
+		
+		try (Connection connection = DriverManager.getConnection(url,username,password)){
+		PreparedStatement ps = connection.prepareStatement(sql1);		
+		ps.setBoolean(1, false);
+		ps.setDouble(2, banker.getCheckingBalance());
+		ps.setDouble(3, banker.getSavingsBalance());
+		ps.setString(4, banker.getUsername());
+		ps.execute();
+		connection.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		String sql2 = "insert into transactions (username_foreign_id , savings_balance, checking_balance, savings_transfer, checking_transfer,  money_transfer_approval) values (?,?,?,?,?,?)";
+
+		try (Connection connection = DriverManager.getConnection(url,username,password)){
+		PreparedStatement ps = connection.prepareStatement(sql2);		
+		
+		ps.setString(1, banker.getUsername());
+		ps.setDouble(2, banker.getSavingsBalance());
+		ps.setDouble(3, banker.getCheckingBalance());
+		ps.setDouble(4, banker.getSavingsMoneyTransfer());
+			
+		ps.setDouble(5, banker.getCheckingMoneyTransfer());
+			
+		ps.setBoolean(6, true);
+		ps.execute();
+		connection.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public boolean selectMoneyTransfer(User banker) {
+		String sql = "SELECT * FROM Users WHERE username = ? AND money_transfer = ?";
+		boolean success = false;
+		try (Connection connection = DriverManager.getConnection(url,username,password)){
+		PreparedStatement ps = connection.prepareStatement(sql);		
+		ps.setString(1, banker.getUsername());
+		ps.setBoolean(2, true);
+		ResultSet rs = ps.executeQuery();
+		
+		while (rs.next()) {
+			if (rs.getBoolean("money_transfer") == true) {
+				success = true;
+			}else {
+				success = false;
+			}
+			}connection.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
+	}
+
+
 
 }

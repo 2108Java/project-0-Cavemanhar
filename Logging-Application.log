@@ -1,0 +1,78 @@
+2021-09-21 21:46:47 INFO  MainDriver:36 - Strarting the Application 
+2021-09-21 21:47:02 INFO  MainDriver:34 - Strarting the Application 
+2021-09-21 22:20:22 INFO  MainDriver:34 - Strarting the Application 
+2021-09-21 22:20:24 INFO  MainMenuImpl:112 - Logging in user
+2021-09-21 22:20:31 INFO  MainMenuImpl:128 - User logged in 
+2021-09-21 22:20:47 INFO  MainMenuImpl:128 - User logged in 
+2021-09-21 22:20:53 INFO  MainMenuImpl:322 - Transfer denied by user
+2021-09-21 22:20:53 INFO  MainMenuImpl:128 - User logged in 
+2021-09-21 22:21:15 INFO  MainDriver:34 - Strarting the Application 
+2021-09-21 22:21:16 INFO  MainMenuImpl:112 - Logging in user
+2021-09-21 22:21:21 INFO  MainMenuImpl:128 - User logged in 
+2021-09-21 22:21:23 INFO  MainMenuImpl:328 - Transfer approve selected without a transfer to approve
+2021-09-21 22:21:23 INFO  MainMenuImpl:128 - User logged in 
+2021-09-21 22:21:53 INFO  MainMenuImpl:128 - User logged in 
+2021-09-21 22:21:59 INFO  MainMenuImpl:322 - Transfer denied by user
+2021-09-21 22:21:59 INFO  MainMenuImpl:128 - User logged in 
+2021-09-22 09:03:58 INFO  MainDriver:34 - Strarting the Application 
+2021-09-22 09:04:07 INFO  MainMenuImpl:431 - employee login 
+2021-09-22 09:04:09 INFO  MainMenuImpl:473 - View all transactions
+2021-09-22 09:04:27 INFO  MainMenuImpl:477 - Employee logging out
+2021-09-22 09:04:28 INFO  MainMenuImpl:489 - Closing App
+2021-09-22 11:47:13 INFO  MainDriver:34 - Strarting the Application 
+2021-09-22 11:47:16 INFO  MainMenuImpl:489 - Closing App
+2021-09-22 11:50:32 INFO  MainDriver:34 - Strarting the Application 
+2021-09-22 11:50:49 INFO  MainMenuImpl:376 - User created with both account types 
+2021-09-22 11:50:56 INFO  ServiceBankImpl:40 - User added to database
+2021-09-22 11:51:39 INFO  MainDriver:34 - Strarting the Application 
+2021-09-22 11:51:49 INFO  MainMenuImpl:431 - employee login 
+2021-09-22 11:51:55 INFO  MainMenuImpl:457 - Customer rejected
+2021-09-22 11:51:59 INFO  MainMenuImpl:477 - Employee logging out
+2021-09-22 11:52:15 INFO  MainMenuImpl:376 - User created with both account types 
+2021-09-22 11:52:22 INFO  ServiceBankImpl:40 - User added to database
+2021-09-22 11:52:54 INFO  MainDriver:34 - Strarting the Application 
+2021-09-22 11:53:06 INFO  MainMenuImpl:431 - employee login 
+2021-09-22 11:53:11 INFO  MainMenuImpl:457 - Customer rejected
+2021-09-22 11:53:17 INFO  MainMenuImpl:477 - Employee logging out
+2021-09-22 11:53:37 WARN  MainMenuImpl:414 - user entered an incorrect account type
+2021-09-22 11:53:50 INFO  MainMenuImpl:376 - User created with both account types 
+2021-09-22 11:53:53 INFO  ServiceBankImpl:40 - User added to database
+2021-09-22 11:54:19 INFO  MainDriver:34 - Strarting the Application 
+2021-09-22 11:54:32 INFO  MainMenuImpl:376 - User created with both account types 
+2021-09-22 11:54:36 INFO  ServiceBankImpl:40 - User added to database
+2021-09-22 11:54:42 INFO  MainMenuImpl:431 - employee login 
+2021-09-22 11:54:48 INFO  MainMenuImpl:444 - Customer approved 
+2021-09-22 11:54:50 INFO  MainMenuImpl:477 - Employee logging out
+2021-09-22 11:54:51 INFO  MainMenuImpl:113 - Logging in user
+2021-09-22 11:54:56 INFO  MainMenuImpl:127 - User logged in 
+2021-09-22 11:56:54 INFO  MainMenuImpl:347 - User logged logged out
+2021-09-22 11:56:56 INFO  MainMenuImpl:489 - Closing App
+2021-09-22 11:57:00 INFO  MainDriver:34 - Strarting the Application 
+2021-09-22 11:58:37 INFO  MainMenuImpl:392 - User created with savings account
+2021-09-22 11:58:42 INFO  ServiceBankImpl:40 - User added to database
+2021-09-22 11:58:48 INFO  MainMenuImpl:113 - Logging in user
+2021-09-22 11:58:56 WARN  MainMenuImpl:358 - User failed to logged in 
+2021-09-22 11:59:08 INFO  MainMenuImpl:431 - employee login 
+2021-09-22 11:59:20 INFO  MainMenuImpl:444 - Customer approved 
+2021-09-22 11:59:27 INFO  MainMenuImpl:473 - View all transactions
+2021-09-22 11:59:40 INFO  MainMenuImpl:466 - view the balance of a user
+2021-09-22 11:59:51 INFO  MainMenuImpl:477 - Employee logging out
+2021-09-22 11:59:54 INFO  MainMenuImpl:113 - Logging in user
+2021-09-22 11:59:58 INFO  MainMenuImpl:127 - User logged in 
+2021-09-22 12:00:01 INFO  MainMenuImpl:136 - Displaying user data
+2021-09-22 12:00:19 WARN  MainMenuImpl:159 - Incorrect value insereted
+2021-09-22 12:00:29 WARN  MainMenuImpl:220 - Incorrect account checked
+2021-09-22 12:01:13 INFO  ServiceBankImpl:146 - transacion successful
+2021-09-22 12:01:42 INFO  MainMenuImpl:136 - Displaying user data
+2021-09-22 12:01:58 INFO  MainMenuImpl:347 - User logged logged out
+2021-09-22 12:02:06 INFO  MainMenuImpl:431 - employee login 
+2021-09-22 12:02:12 INFO  MainMenuImpl:457 - Customer rejected
+2021-09-22 12:02:22 INFO  MainMenuImpl:444 - Customer approved 
+2021-09-22 12:02:25 INFO  MainMenuImpl:477 - Employee logging out
+2021-09-22 12:02:26 INFO  MainMenuImpl:489 - Closing App
+2021-09-22 12:17:58 INFO  MainDriver:34 - Strarting the Application 
+2021-09-22 12:18:05 INFO  MainMenuImpl:431 - employee login 
+2021-09-22 12:18:11 INFO  MainMenuImpl:457 - Customer rejected
+2021-09-22 12:18:18 INFO  MainMenuImpl:466 - view the balance of a user
+2021-09-22 12:18:27 INFO  MainMenuImpl:477 - Employee logging out
+2021-09-22 12:18:27 INFO  MainMenuImpl:489 - Closing App

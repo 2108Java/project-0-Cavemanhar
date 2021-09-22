@@ -76,3 +76,25 @@
 2021-09-22 12:18:18 INFO  MainMenuImpl:466 - view the balance of a user
 2021-09-22 12:18:27 INFO  MainMenuImpl:477 - Employee logging out
 2021-09-22 12:18:27 INFO  MainMenuImpl:489 - Closing App
+2021-09-22 13:01:41 INFO  MainDriver:34 - Strarting the Application 
+2021-09-22 13:28:43 INFO  MainMenuImpl:392 - User created with savings account
+2021-09-22 13:28:46 INFO  ServiceBankImpl:40 - User added to database
+2021-09-22 13:28:51 INFO  MainMenuImpl:113 - Logging in user
+2021-09-22 13:28:55 WARN  MainMenuImpl:358 - User failed to logged in 
+2021-09-22 13:29:05 INFO  MainMenuImpl:431 - employee login 
+2021-09-22 13:29:14 INFO  MainMenuImpl:444 - Customer approved 
+2021-09-22 13:29:20 INFO  MainMenuImpl:457 - Customer rejected
+2021-09-22 13:29:23 INFO  MainMenuImpl:466 - view the balance of a user
+2021-09-22 13:29:33 INFO  MainMenuImpl:473 - View all transactions
+2021-09-22 13:29:37 INFO  MainMenuImpl:477 - Employee logging out
+2021-09-22 13:29:39 INFO  MainMenuImpl:113 - Logging in user
+2021-09-22 13:29:45 INFO  MainMenuImpl:127 - User logged in 
+2021-09-22 13:29:47 INFO  MainMenuImpl:136 - Displaying user data
+2021-09-22 13:29:56 INFO  ServiceBankImpl:120 - transacion successful
+2021-09-22 13:30:06 INFO  MainMenuImpl:136 - Displaying user data
+2021-09-22 13:30:14 WARN  MainMenuImpl:220 - Incorrect account checked
+2021-09-22 13:30:29 INFO  MainMenuImpl:136 - Displaying user data
+2021-09-22 13:30:58 INFO  MainMenuImpl:136 - Displaying user data
+2021-09-22 13:31:10 INFO  MainMenuImpl:136 - Displaying user data
+2021-09-22 13:31:18 INFO  MainMenuImpl:347 - User logged logged out
+2021-09-22 13:31:23 INFO  MainMenuImpl:489 - Closing App
